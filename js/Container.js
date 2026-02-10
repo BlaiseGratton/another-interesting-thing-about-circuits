@@ -1,0 +1,208 @@
+import { ComponentGraph } from './componentGraph.js'
+import { createSVGElement } from './svg.js'
+import { Wire } from './Wire.js'
+import { PowerSource } from './PowerSource.js'
+import { GroundConnection } from './Ground.js'
+
+class ComponentContainer extends HTMLElement {
+  static observedAttributes = [
+    'x',
+    'y',
+    'height',
+    'width',
+    'scale',
+    'parentscale'
+  ]
+
+  /* prettier-ignore */ get x() { return parseFloat(this.getAttribute('x')) || 0 }
+  /* prettier-ignore */ get y() { return parseFloat(this.getAttribute('y')) || 0 }
+  /* prettier-ignore */ get height() { return parseFloat(this.getAttribute('height')) }
+  /* prettier-ignore */ get width() { return parseFloat(this.getAttribute('width')) }
+  /* prettier-ignore */ get scale() { return parseFloat(this.getAttribute('scale') || 1) }
+  /* prettier-ignore */ get parentScale() { return parseFloat(this.getAttribute('parentscale') || 1) }
+  /* prettier-ignore */ get svg() { return this._svg }
+  /* prettier-ignore */ get shadow() { return this._shadow || this.parentElement.shadow }
+  /* prettier-ignore */ get isRoot() { return !this.parentElement.classList.contains('component-container') }
+  get parentOffsetX() {
+    if (this.isRoot) return 0
+    return this.x * this.parentScale + this.parentElement.parentOffsetX
+  }
+  get parentOffsetY() {
+    if (this.isRoot) return 0
+    return this.y * this.parentScale + this.parentElement.parentOffsetY
+  }
+  get componentGraph() {
+    return this.graph || this.parentElement.componentGraph
+  }
+
+  /* prettier-ignore */ set x(value) { this.setAttribute('x', value) }
+  /* prettier-ignore */ set y(value) { this.setAttribute('y', value) }
+  /* prettier-ignore */ set height(value) { this.setAttribute('height', value) }
+  /* prettier-ignore */ set width(value) { this.setAttribute('width', value) }
+
+  constructor() {
+    super()
+    this.classList.add('component-container')
+    this._svg = createSVGElement('svg')
+    this.border = createSVGElement('rect')
+    this.border.setAttribute('stroke', 'black')
+    this.border.setAttribute('fill', 'none')
+  }
+
+  connectedCallback() {
+    setTimeout(() => (this.yup = true), 500)
+    if (this.isRoot) {
+      this.graph = new ComponentGraph()
+      this.style.display = 'block'
+      this.style.height =
+        this.getAttribute('height') * this.scale * this.parentScale + 'px'
+      this.style.width =
+        this.getAttribute('width') * this.scale * this.parentScale + 'px'
+      const shadow = this.attachShadow({ mode: 'open' })
+      const linkElem = document.createElement('link')
+      linkElem.setAttribute('rel', 'stylesheet')
+      linkElem.setAttribute('href', '/css/svg-style.css')
+      const div = document.createElement('div')
+      div.appendChild(linkElem)
+      div.appendChild(this.svg)
+      shadow.appendChild(div)
+      this._shadow = shadow
+    } else {
+      this.parentElement.svg.appendChild(this.svg)
+    }
+
+    this.setBorder()
+    this.svg.appendChild(this.border)
+    this.createPorts('left', this.getAttribute('leftports'))
+    this.createPorts('top', this.getAttribute('topports'))
+    this.createPorts('right', this.getAttribute('rightports'))
+    this.createPorts('bottom', this.getAttribute('bottomports'))
+
+    // wires are created before containers and child containers are created after their parent,
+    // so connectedCallback needs to be re-called once this.svg is available
+    Array.from(this.children).forEach((child) => {
+      if (child.connectedCallback) {
+        child.connectedCallback()
+      }
+    })
+  }
+
+  attributeChangedCallback(name, oldVal, newVal) {
+    if (!this.svg) return
+    this.attributeHandlers[name](oldVal, newVal)
+  }
+
+  attributeHandlers = {
+    x: (oldVal, newVal) => {
+      this.svg.setAttribute('x', newVal * this.parentScale)
+    },
+    y: (oldVal, newVal) => {
+      this.svg.setAttribute('y', newVal * this.parentScale)
+    },
+    height: (oldVal, newVal) => {
+      this.svg.setAttribute('height', newVal * this.scale * this.parentScale)
+      this.setBorder()
+    },
+    width: (oldVal, newVal) => {
+      this.svg.setAttribute('width', newVal * this.scale * this.parentScale)
+      this.setBorder()
+    },
+    scale: (oldVal, newVal) =>
+      this.handleScaleChange(oldVal, newVal * this.parentScale),
+    parentscale: (oldVal, newVal) =>
+      this.handleScaleChange(oldVal, newVal * this.scale)
+  }
+
+  handleScaleChange(oldVal, newVal) {
+    this.setAttribute('x', this.x)
+    this.setAttribute('y', this.y)
+    this.setAttribute('height', this.height)
+    this.setAttribute('width', this.width)
+    this.setBorder()
+    const containerChildren = this.querySelectorAll('&> *')
+    containerChildren.forEach((container) =>
+      container.setAttribute('parentscale', newVal)
+    )
+  }
+
+  setBorder() {
+    this.border.setAttribute(
+      'height',
+      this.height * this.scale * this.parentScale
+    )
+    this.border.setAttribute(
+      'width',
+      this.width * this.scale * this.parentScale
+    )
+  }
+
+  createPorts(side, portCountAttribute) {
+    const portCount = parseInt(portCountAttribute)
+    if (this.isRoot || !portCount) return
+    const offset = 8
+
+    const outsideHeight = (this.height * this.scale) / (portCount + 1)
+    // const outsideHeight = (this.height * this.scale) / (portCount + 1)
+    const outsideWidth = (this.width * this.scale) / (portCount + 1)
+
+    for (let i = 1; i <= portCount; i++) {
+      if (side === 'left') {
+        const outerWire = document.createElement('wire-element')
+        outerWire.setAttribute('x1', this.x - offset)
+        outerWire.setAttribute('y1', this.y + outsideHeight * i)
+        outerWire.setAttribute('x2', this.x)
+        outerWire.setAttribute('y2', this.y + outsideHeight * i)
+        outerWire.setAttribute('parentscale', this.parentScale)
+        outerWire.setAttribute('id', 'outer' + i)
+        this.parentElement.appendChild(outerWire)
+
+        const innerWire = document.createElement('wire-element')
+        innerWire.setAttribute('x1', 0)
+        innerWire.setAttribute('y1', (this.height / (portCount + 1)) * i)
+        innerWire.setAttribute('x2', offset)
+        innerWire.setAttribute('y2', (this.height / (portCount + 1)) * i)
+        innerWire.setAttribute('id', 'inner' + i)
+        this.appendChild(innerWire)
+
+        outerWire.addWireConnection(innerWire, true)
+        outerWire.end2.remove()
+        innerWire.end1.remove()
+      }
+    }
+  }
+
+  getTouchingWireEnds(movedEnd, otherEnd) {
+    if (!otherEnd) {
+      otherEnd = movedEnd
+    } else if (!otherEnd.getAttribute('cx')) {
+      return []
+    }
+    return Array.from(this.svg.querySelectorAll('&> circle.wire-end'))
+      .filter((e) => e !== movedEnd && e !== otherEnd)
+      .map((end) => {
+        const { e: xOffset, f: yOffset } = end.getCTM()
+        const movedBounds = this.svg.createSVGRect()
+        movedBounds.x =
+          parseFloat(movedEnd.getAttribute('cx')) - 2 * this.scale + xOffset
+        movedBounds.y =
+          parseFloat(movedEnd.getAttribute('cy')) - 2 * this.scale + yOffset
+        movedBounds.width = 4 * this.scale
+        movedBounds.height = 4 * this.scale
+        const unmovedBounds = this.svg.createSVGRect()
+        unmovedBounds.x =
+          parseFloat(otherEnd.getAttribute('cx')) - 2 * this.scale + xOffset
+        unmovedBounds.y =
+          parseFloat(otherEnd.getAttribute('cy')) - 2 * this.scale + yOffset
+        unmovedBounds.width = 4 * this.scale
+        unmovedBounds.height = 4 * this.scale
+        return (
+          (this.svg.checkIntersection(end, unmovedBounds) ||
+            this.svg.checkIntersection(end, movedBounds)) &&
+          end.component
+        )
+      })
+      .filter(Boolean)
+  }
+}
+
+customElements.define('component-container', ComponentContainer)

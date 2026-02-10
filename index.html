@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Another Interesting Thing About Circuits</title>
+    <script src="/js/container.js" type="module"></script>
+  </head>
+  <body>
+    <label>Scale</label>
+    <input id="container-scale" type="number" step="0.05" value="3.5" />
+    <component-container height="1000" width="1000" scale="1" id="c">
+      <power-source x1="20" y1="90" x2="20" y2="30" id="p1"></power-source>
+      <ground-connection
+        x1="150"
+        y1="290"
+        x2="200"
+        y2="100"
+        id="g1"
+      ></ground-connection>
+      <wire-element x1="30" y1="30" x2="90" y2="90" id="w1"></wire-element>
+      <wire-element x1="80" y1="50" x2="100" y2="150" id="w2"></wire-element>
+      <component-container
+        height="300"
+        width="400"
+        scale=".5"
+        x="200"
+        y="150"
+        id="i-c"
+        leftports="3"
+      >
+        <power-source x1="20" y1="90" x2="20" y2="30" id="p2"></power-source>
+        <wire-element x1="30" y1="30" x2="90" y2="90" id="i-w1"></wire-element>
+        <wire-element
+          x1="80"
+          y1="50"
+          x2="100"
+          y2="150"
+          id="i-w2"
+        ></wire-element>
+        <ground-connection
+          x1="150"
+          y1="290"
+          x2="200"
+          y2="100"
+          id="g2"
+        ></ground-connection>
+        <component-container
+          height="300"
+          width="400"
+          scale=".5"
+          x="200"
+          y="150"
+          id="i-i-c"
+          leftports="2"
+        >
+          <power-source x1="20" y1="90" x2="20" y2="30" id="p3"></power-source>
+          <wire-element
+            x1="30"
+            y1="30"
+            x2="90"
+            y2="90"
+            id="i-i-w1"
+          ></wire-element>
+          <wire-element
+            x1="80"
+            y1="50"
+            x2="100"
+            y2="150"
+            id="i-i-w2"
+          ></wire-element>
+        </component-container>
+      </component-container>
+    </component-container>
+  </body>
+  <script>
+    const scale = document.querySelector('#container-scale')
+    const container = document.querySelector('component-container')
+    container.setAttribute('scale', scale.value)
+    scale.onchange = (event) => {
+      container.setAttribute('scale', event.target.value)
+    }
+    this.logging = {
+      wire: {
+        addWireConnection: false,
+        disconnectWire: true
+      },
+      componentGraph: {
+        determineFlow: false
+      }
+    }
+  </script>
+</html>

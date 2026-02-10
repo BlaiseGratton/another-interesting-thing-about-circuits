@@ -1,0 +1,64 @@
+import { createSVGElement } from './svg.js'
+import { Wire } from './Wire.js'
+
+const VOLTAGE_SINK = { current: -Infinity }
+const BAR_SPACING = 6
+
+export class GroundConnection extends Wire {
+  constructor() {
+    super()
+    this.end1.remove()
+    this.end1 = undefined
+    this.line1 = createSVGElement('line')
+    this.line2 = createSVGElement('line')
+    this.line3 = createSVGElement('line')
+    this.line1.setAttribute('stroke', 'black')
+    this.line2.setAttribute('stroke', 'black')
+    this.line3.setAttribute('stroke', 'black')
+  }
+
+  connectedCallback() {
+    super.connectedCallback()
+    if (this.svg) {
+      this.drawSymbol()
+      this.svg.appendChild(this.line1)
+      this.svg.appendChild(this.line2)
+      this.svg.appendChild(this.line3)
+    }
+  }
+
+  handleDraw(attribute, value) {
+    super.handleDraw(attribute, value)
+    if (attribute[1] === '1') {
+      this.drawSymbol()
+    }
+  }
+
+  drawSymbol() {
+    this.line1.setAttribute('x1', (this.x1 - 14) * this.parentScale)
+    this.line1.setAttribute('y1', this.y1 * this.parentScale)
+    this.line1.setAttribute('x2', (this.x1 + 14) * this.parentScale)
+    this.line1.setAttribute('y2', this.y1 * this.parentScale)
+    this.line1.setAttribute('stroke-width', 3 * this.parentScale)
+
+    this.line2.setAttribute('x1', (this.x1 - 10) * this.parentScale)
+    this.line2.setAttribute('y1', (this.y1 + BAR_SPACING) * this.parentScale)
+    this.line2.setAttribute('x2', (this.x1 + 10) * this.parentScale)
+    this.line2.setAttribute('y2', (this.y1 + BAR_SPACING) * this.parentScale)
+    this.line2.setAttribute('stroke-width', 3 * this.parentScale)
+
+    this.line3.setAttribute('x1', (this.x1 - 7) * this.parentScale)
+    this.line3.setAttribute(
+      'y1',
+      (this.y1 + BAR_SPACING * 2) * this.parentScale
+    )
+    this.line3.setAttribute('x2', (this.x1 + 7) * this.parentScale)
+    this.line3.setAttribute(
+      'y2',
+      (this.y1 + BAR_SPACING * 2) * this.parentScale
+    )
+    this.line3.setAttribute('stroke-width', 3 * this.parentScale)
+  }
+}
+
+window.customElements.define('ground-connection', GroundConnection)
