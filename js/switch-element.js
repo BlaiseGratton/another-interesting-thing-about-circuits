@@ -1,17 +1,21 @@
-import { ComponentContainer } from './Container.js'
+import { ComponentContainer } from './component-container.js'
 
 export class Switch extends ComponentContainer {
-  get unmagnetisedOffsetX() {
-    return -7
+  get magnetisedOffsetX() {
+    return 7
   }
-  get unmagnetisedOffsetY() {
-    return -20
+  get magnetisedOffsetY() {
+    return 20
   }
-  get magnetisedPositionX() {
-    return 140
+  get unmagnetisedPositionX() {
+    return 133
   }
-  get magnetisedPositionY() {
-    return 48
+  get unmagnetisedPositionY() {
+    return 28
+  }
+
+  get movementDelay() {
+    return parseInt(this.getAttribute('movementdelay')) || 50
   }
 
   constructor() {
@@ -52,8 +56,8 @@ export class Switch extends ComponentContainer {
     const switchWire2 = document.createElement('wire-element')
     switchWire2.x1 = 60
     switchWire2.y1 = 48
-    switchWire2.x2 = this.magnetisedPositionX + this.unmagnetisedOffsetX
-    switchWire2.y2 = this.magnetisedPositionY + this.unmagnetisedOffsetY
+    switchWire2.x2 = this.unmagnetisedPositionX
+    switchWire2.y2 = this.unmagnetisedPositionY
     this.appendChild(switchWire2)
     this.switchWire = switchWire2
     const switchWire3 = document.createElement('wire-element')
@@ -70,13 +74,17 @@ export class Switch extends ComponentContainer {
   }
 
   onVoltageGained() {
-    this.switchWire.x2 -= this.unmagnetisedOffsetX
-    this.switchWire.y2 -= this.unmagnetisedOffsetY
+    setTimeout(() => {
+      this.switchWire.x2 += this.magnetisedOffsetX
+      this.switchWire.y2 += this.magnetisedOffsetY
+    }, this.movementDelay)
   }
 
   onVoltageLost() {
-    this.switchWire.x2 += this.unmagnetisedOffsetX
-    this.switchWire.y2 += this.unmagnetisedOffsetY
+    setTimeout(() => {
+      this.switchWire.x2 -= this.magnetisedOffsetX
+      this.switchWire.y2 -= this.magnetisedOffsetY
+    }, this.movementDelay)
   }
 }
 

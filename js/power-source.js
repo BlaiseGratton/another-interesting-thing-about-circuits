@@ -1,5 +1,5 @@
 import { createSVGElement } from './svg.js'
-import { Wire } from './Wire.js'
+import { Wire } from './wire-element.js'
 
 const VOLTAGE_SOURCE = { current: Infinity }
 

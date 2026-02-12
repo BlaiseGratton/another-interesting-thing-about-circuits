@@ -10,19 +10,29 @@
     <label>Scale</label>
     <input id="container-scale" type="number" step="0.05" value="1.5" />
     <component-container height="1000" width="1000" scale="1" id="c">
-      <switch-element x="300" y="350"></switch-element>
+      <inverter-switch x="300" y="50" scale=".2"></inverter-switch>
+      <switch-element x="300" y="200" scale=".4"></switch-element>
       <power-source x1="20" y1="90" x2="30" y2="30" id="p1"></power-source>
+      <power-source x1="20" y1="190" x2="30" y2="290" id="p1"></power-source>
+      <power-source x1="250" y1="190" x2="250" y2="290" id="p1"></power-source>
+      <wire-element x1="250" y1="290" x2="275" y2="290" id="p1"></wire-element>
       <ground-connection
-        x1="150"
+        x1="550"
         y1="290"
-        x2="200"
-        y2="100"
+        x2="508"
+        y2="263"
         id="g1"
       ></ground-connection>
-      <wire-element x1="30" y1="30" x2="290" y2="460" id="w1"></wire-element>
-      <wire-coil x1="30" y1="300" x2="100" y2="290" id="wc1"></wire-coil>
-      <wire-element x1="80" y1="50" x2="100" y2="150" id="w2"></wire-element>
-      <component-container
+      <ground-connection
+        x1="550"
+        y1="190"
+        x2="508"
+        y2="110"
+        id="g1"
+      ></ground-connection>
+      <wire-element x1="30" y1="30" x2="292" y2="242" id="w1"></wire-element>
+      <wire-element x1="30" y1="290" x2="292" y2="93" id="w2"></wire-element>
+      <!-- <component-container
         height="300"
         width="400"
         scale=".5"
@@ -76,7 +86,7 @@
             id="i-i-w2"
           ></wire-element>
         </component-container>
-      </component-container>
+      </component-container> -->
     </component-container>
   </body>
   <script>

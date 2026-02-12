@@ -1,5 +1,5 @@
 import { createSVGElement } from './svg.js'
-import { ComponentBase } from './ComponentBase.js'
+import { ComponentBase } from './componentBase.js'
 
 export class Wire extends ComponentBase {
   static observedAttributes = ['x1', 'y1', 'x2', 'y2', 'parentscale', 'voltage']
