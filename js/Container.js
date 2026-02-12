@@ -1,10 +1,7 @@
 import { ComponentGraph } from './componentGraph.js'
 import { createSVGElement } from './svg.js'
-import { Wire } from './Wire.js'
-import { PowerSource } from './PowerSource.js'
-import { GroundConnection } from './Ground.js'
 
-class ComponentContainer extends HTMLElement {
+export class ComponentContainer extends HTMLElement {
   static observedAttributes = [
     'x',
     'y',
@@ -16,8 +13,8 @@ class ComponentContainer extends HTMLElement {
 
   /* prettier-ignore */ get x() { return parseFloat(this.getAttribute('x')) || 0 }
   /* prettier-ignore */ get y() { return parseFloat(this.getAttribute('y')) || 0 }
-  /* prettier-ignore */ get height() { return parseFloat(this.getAttribute('height')) }
-  /* prettier-ignore */ get width() { return parseFloat(this.getAttribute('width')) }
+  /* prettier-ignore */ get height() { return parseFloat(this.getAttribute('height')) || 0 }
+  /* prettier-ignore */ get width() { return parseFloat(this.getAttribute('width')) || 0 }
   /* prettier-ignore */ get scale() { return parseFloat(this.getAttribute('scale') || 1) }
   /* prettier-ignore */ get parentScale() { return parseFloat(this.getAttribute('parentscale') || 1) }
   /* prettier-ignore */ get svg() { return this._svg }
@@ -45,12 +42,12 @@ class ComponentContainer extends HTMLElement {
     this.classList.add('component-container')
     this._svg = createSVGElement('svg')
     this.border = createSVGElement('rect')
-    this.border.setAttribute('stroke', 'black')
-    this.border.setAttribute('fill', 'none')
   }
 
   connectedCallback() {
-    setTimeout(() => (this.yup = true), 500)
+    this.border.setAttribute('stroke', 'black')
+    this.border.setAttribute('fill', 'none')
+
     if (this.isRoot) {
       this.graph = new ComponentGraph()
       this.style.display = 'block'
@@ -142,7 +139,6 @@ class ComponentContainer extends HTMLElement {
     const offset = 8
 
     const outsideHeight = (this.height * this.scale) / (portCount + 1)
-    // const outsideHeight = (this.height * this.scale) / (portCount + 1)
     const outsideWidth = (this.width * this.scale) / (portCount + 1)
 
     for (let i = 1; i <= portCount; i++) {
@@ -153,7 +149,7 @@ class ComponentContainer extends HTMLElement {
         outerWire.setAttribute('x2', this.x)
         outerWire.setAttribute('y2', this.y + outsideHeight * i)
         outerWire.setAttribute('parentscale', this.parentScale)
-        outerWire.setAttribute('id', 'outer' + i)
+        outerWire.setAttribute('id', 'outer-l' + i)
         this.parentElement.appendChild(outerWire)
 
         const innerWire = document.createElement('wire-element')
@@ -161,7 +157,73 @@ class ComponentContainer extends HTMLElement {
         innerWire.setAttribute('y1', (this.height / (portCount + 1)) * i)
         innerWire.setAttribute('x2', offset)
         innerWire.setAttribute('y2', (this.height / (portCount + 1)) * i)
-        innerWire.setAttribute('id', 'inner' + i)
+        innerWire.setAttribute('id', 'inner-l' + i)
+        this.appendChild(innerWire)
+
+        outerWire.addWireConnection(innerWire, true)
+        outerWire.end2.remove()
+        innerWire.end1.remove()
+      }
+      if (side === 'right') {
+        const outerWire = document.createElement('wire-element')
+        outerWire.setAttribute('x1', this.x + this.width * this.scale + offset)
+        outerWire.setAttribute('y1', this.y + outsideHeight * i)
+        outerWire.setAttribute('x2', this.x + this.width * this.scale)
+        outerWire.setAttribute('y2', this.y + outsideHeight * i)
+        outerWire.setAttribute('parentscale', this.parentScale)
+        outerWire.setAttribute('id', 'outer-r-' + i)
+        this.parentElement.appendChild(outerWire)
+
+        const innerWire = document.createElement('wire-element')
+        innerWire.setAttribute('x1', this.width)
+        innerWire.setAttribute('y1', (this.height / (portCount + 1)) * i)
+        innerWire.setAttribute('x2', this.width - offset)
+        innerWire.setAttribute('y2', (this.height / (portCount + 1)) * i)
+        innerWire.setAttribute('id', 'inner-r' + i)
+        this.appendChild(innerWire)
+
+        outerWire.addWireConnection(innerWire, true)
+        outerWire.end2.remove()
+        innerWire.end1.remove()
+      }
+      if (side === 'top') {
+        const outerWire = document.createElement('wire-element')
+        outerWire.setAttribute('x1', this.x + outsideWidth * i)
+        outerWire.setAttribute('y1', this.y - offset)
+        outerWire.setAttribute('x2', this.x + outsideWidth * i)
+        outerWire.setAttribute('y2', this.y)
+        outerWire.setAttribute('parentscale', this.parentScale)
+        outerWire.setAttribute('id', 'outer-t' + i)
+        this.parentElement.appendChild(outerWire)
+
+        const innerWire = document.createElement('wire-element')
+        innerWire.setAttribute('x1', (this.width / (portCount + 1)) * i)
+        innerWire.setAttribute('y1', 0)
+        innerWire.setAttribute('x2', (this.width / (portCount + 1)) * i)
+        innerWire.setAttribute('y2', offset)
+        innerWire.setAttribute('id', 'inner-t' + i)
+        this.appendChild(innerWire)
+
+        outerWire.addWireConnection(innerWire, true)
+        outerWire.end2.remove()
+        innerWire.end1.remove()
+      }
+      if (side === 'bottom') {
+        const outerWire = document.createElement('wire-element')
+        outerWire.setAttribute('x1', this.x + outsideWidth * i)
+        outerWire.setAttribute('y1', this.y + this.height * this.scale + offset)
+        outerWire.setAttribute('x2', this.x + outsideWidth * i)
+        outerWire.setAttribute('y2', this.y + this.height * this.scale)
+        outerWire.setAttribute('parentscale', this.parentScale)
+        outerWire.setAttribute('id', 'outer-t' + i)
+        this.parentElement.appendChild(outerWire)
+
+        const innerWire = document.createElement('wire-element')
+        innerWire.setAttribute('x1', (this.width / (portCount + 1)) * i)
+        innerWire.setAttribute('y1', this.height)
+        innerWire.setAttribute('x2', (this.width / (portCount + 1)) * i)
+        innerWire.setAttribute('y2', this.height - offset)
+        innerWire.setAttribute('id', 'inner-t' + i)
         this.appendChild(innerWire)
 
         outerWire.addWireConnection(innerWire, true)

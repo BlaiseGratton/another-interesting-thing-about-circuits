@@ -1,7 +1,6 @@
 import { createSVGElement } from './svg.js'
 import { Wire } from './Wire.js'
 
-const VOLTAGE_SINK = { current: -Infinity }
 const BAR_SPACING = 6
 
 export class GroundConnection extends Wire {
