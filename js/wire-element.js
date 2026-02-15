@@ -21,6 +21,7 @@ export class Wire extends ComponentBase {
   constructor() {
     super()
     this.line = createSVGElement('line')
+    this.strokeWidth = 1
     this.end1 = createSVGElement('circle')
     this.end2 = createSVGElement('circle')
     this.end1.component = this
@@ -37,13 +38,13 @@ export class Wire extends ComponentBase {
       this.svg.appendChild(this.line)
       if (this.end1) {
         this.svg.appendChild(this.end1)
-        this.end1.setAttribute('r', this.endRadius)
+        this.end1.setAttribute('r', this.endRadius * this.parentScale)
         this.end1.classList.add('wire-end')
         this.addEventListeners(this.end1, 'x1', 'y1')
       }
       this.svg.appendChild(this.end2)
       this.line.setAttribute('stroke', this.color)
-      this.end2.setAttribute('r', this.endRadius)
+      this.end2.setAttribute('r', this.endRadius * this.parentScale)
       this.end2.classList.add('wire-end')
       this.drawAllPoints()
       this.line.onmouseenter = () => this.changeColor('orange')
@@ -79,18 +80,21 @@ export class Wire extends ComponentBase {
         this.end1.setAttribute('cx', this.x1 * scale)
         this.end1.setAttribute('cy', this.y1 * scale)
         this.end1.setAttribute('r', this.endRadius * scale)
+        this.end1.setAttribute('stroke-width', this.endRadius * scale)
         this.handleComponentMoved(this.end1, this.end2)
       }
       if (attribute[1] === '2' && this.end2) {
         this.end2.setAttribute('cx', this.x2 * scale)
         this.end2.setAttribute('cy', this.y2 * scale)
         this.end2.setAttribute('r', this.endRadius * scale)
+        this.end2.setAttribute('stroke-width', this.endRadius * scale)
         this.handleComponentMoved(this.end2, this.end1)
       }
     }
   }
 
   drawAllPoints() {
+    this.line.setAttribute('stroke-width', this.strokeWidth * this.parentScale)
     this.handleDraw('x1', this.x1)
     this.handleDraw('y1', this.y1)
     this.handleDraw('x2', this.x2)

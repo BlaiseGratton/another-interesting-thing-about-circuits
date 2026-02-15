@@ -86,6 +86,7 @@ export class WireCoil extends Wire {
 
     while (paths.length < cycles) {
       const path = createSVGElement('path')
+      path.setAttribute('stroke-width', this.parentScale)
       const xEnd = lastXStart + cycleXDistance
       const yEnd = lastYStart + cycleYDistance
       path.setAttribute(

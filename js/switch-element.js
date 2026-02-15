@@ -20,13 +20,15 @@ export class Switch extends ComponentContainer {
 
   constructor() {
     super()
+    this.leftPorts = 2
+    this.rightPorts = 1
+    this.width = 200
+    this.height = 125
   }
 
   connectedCallback() {
-    this.width = 200
-    this.height = 125
-    this.setAttribute('leftports', 2)
-    this.setAttribute('rightports', 1)
+    this.setAttribute('leftports', this.leftPorts)
+    this.setAttribute('rightports', this.rightPorts)
     super.connectedCallback()
     const coil = document.createElement('wire-coil')
     coil.x1 = 60
@@ -35,37 +37,41 @@ export class Switch extends ComponentContainer {
     coil.y2 = 92.9
     this.appendChild(coil)
     this.coil = coil
-    const coilWire1 = document.createElement('wire-element')
-    coilWire1.x1 = 8
-    coilWire1.y1 = 83
-    coilWire1.x2 = 60
-    coilWire1.y2 = 93
-    this.appendChild(coilWire1)
+    const leftCoilWire = document.createElement('wire-element')
+    leftCoilWire.x1 = 8
+    leftCoilWire.y1 = 83
+    leftCoilWire.x2 = 60
+    leftCoilWire.y2 = 93
+    this.appendChild(leftCoilWire)
+    this.leftCoilWire = leftCoilWire
     const ground = document.createElement('ground-connection')
     ground.x1 = 175
     ground.y1 = 108
     ground.x2 = 140
     ground.y2 = 93
     this.appendChild(ground)
-    const switchWire1 = document.createElement('wire-element')
-    switchWire1.x1 = 8
-    switchWire1.y1 = 42
-    switchWire1.x2 = 60
-    switchWire1.y2 = 48
-    this.appendChild(switchWire1)
-    const switchWire2 = document.createElement('wire-element')
-    switchWire2.x1 = 60
-    switchWire2.y1 = 48
-    switchWire2.x2 = this.unmagnetisedPositionX
-    switchWire2.y2 = this.unmagnetisedPositionY
-    this.appendChild(switchWire2)
-    this.switchWire = switchWire2
-    const switchWire3 = document.createElement('wire-element')
-    switchWire3.x1 = 140
-    switchWire3.y1 = 48
-    switchWire3.x2 = 192
-    switchWire3.y2 = 62
-    this.appendChild(switchWire3)
+    this.ground = ground
+    const leftSwitchWire = document.createElement('wire-element')
+    leftSwitchWire.x1 = 8
+    leftSwitchWire.y1 = 42
+    leftSwitchWire.x2 = 60
+    leftSwitchWire.y2 = 48
+    this.appendChild(leftSwitchWire)
+    this.leftSwitchWire = leftSwitchWire
+    const switchWire = document.createElement('wire-element')
+    switchWire.x1 = 60
+    switchWire.y1 = 48
+    switchWire.x2 = this.unmagnetisedPositionX
+    switchWire.y2 = this.unmagnetisedPositionY
+    this.appendChild(switchWire)
+    this.switchWire = switchWire
+    const rightSwitchWire = document.createElement('wire-element')
+    rightSwitchWire.x1 = 140
+    rightSwitchWire.y1 = 48
+    rightSwitchWire.x2 = 192
+    rightSwitchWire.y2 = 62
+    this.appendChild(rightSwitchWire)
+    this.rightSwitchWire = rightSwitchWire
 
     this.coil.addEventListener('voltage-gained', () => {
       this.onVoltageGained()
@@ -74,17 +80,34 @@ export class Switch extends ComponentContainer {
   }
 
   onVoltageGained() {
-    setTimeout(() => {
-      this.switchWire.x2 += this.magnetisedOffsetX
-      this.switchWire.y2 += this.magnetisedOffsetY
-    }, this.movementDelay)
+    if (!this.pendingVoltageGain) {
+      const stepX = this.magnetisedOffsetX / 3
+      const stepY = this.magnetisedOffsetY / 3
+      const stepInterval = this.movementDelay / 3
+      for (let i = 1; i < 4; i++) {
+        setTimeout(() => {
+          this.switchWire.x2 = this.unmagnetisedPositionX + i * stepX
+          this.switchWire.y2 = this.unmagnetisedPositionY + i * stepY
+        }, i * stepInterval)
+      }
+      setTimeout(() => {
+        this.switchWire.x2 = this.unmagnetisedPositionX + this.magnetisedOffsetX
+        this.switchWire.y2 = this.unmagnetisedPositionY + this.magnetisedOffsetY
+        this.pendingVoltageGain = false
+      }, this.movementDelay)
+    }
+    this.pendingVoltageGain = true
   }
 
   onVoltageLost() {
-    setTimeout(() => {
-      this.switchWire.x2 -= this.magnetisedOffsetX
-      this.switchWire.y2 -= this.magnetisedOffsetY
-    }, this.movementDelay)
+    if (!this.pendingVoltageLoss) {
+      setTimeout(() => {
+        this.switchWire.x2 = this.unmagnetisedPositionX
+        this.switchWire.y2 = this.unmagnetisedPositionY
+        this.pendingVoltageLoss = false
+      }, this.movementDelay)
+    }
+    this.pendingVoltageLoss = true
   }
 }
 
