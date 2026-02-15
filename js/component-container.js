@@ -39,12 +39,12 @@ export class ComponentContainer extends HTMLElement {
 
   constructor() {
     super()
-    this.classList.add('component-container')
     this._svg = createSVGElement('svg')
     this.border = createSVGElement('rect')
   }
 
   connectedCallback() {
+    this.classList.add('component-container')
     this.border.setAttribute('stroke', 'black')
     this.border.setAttribute('fill', 'none')
 

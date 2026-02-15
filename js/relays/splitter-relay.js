@@ -1,4 +1,4 @@
-import { Switch } from './switch-element.js'
+import { Switch } from '../switches/switch-element.js'
 
 export class SplitterRelay extends Switch {
   constructor() {

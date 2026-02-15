@@ -1,4 +1,4 @@
-import { ComponentContainer } from './component-container.js'
+import { ComponentContainer } from '../component-container.js'
 
 export class Switch extends ComponentContainer {
   get magnetisedOffsetX() {
@@ -20,13 +20,13 @@ export class Switch extends ComponentContainer {
 
   constructor() {
     super()
+  }
+
+  connectedCallback() {
     this.leftPorts = 2
     this.rightPorts = 1
     this.width = 200
     this.height = 125
-  }
-
-  connectedCallback() {
     this.setAttribute('leftports', this.leftPorts)
     this.setAttribute('rightports', this.rightPorts)
     super.connectedCallback()
