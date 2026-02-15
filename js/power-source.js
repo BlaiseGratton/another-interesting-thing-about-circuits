@@ -1,8 +1,6 @@
 import { createSVGElement } from './svg.js'
 import { Wire } from './wire-element.js'
 
-const VOLTAGE_SOURCE = { current: Infinity }
-
 export class PowerSource extends Wire {
   constructor() {
     super()

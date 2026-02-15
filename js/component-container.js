@@ -245,93 +245,22 @@ export class ComponentContainer extends HTMLElement {
         const { e: xOffsetMoved, f: yOffsetMoved } = end.getCTM()
         const movedBounds = this.svg.createSVGRect()
         const movedRadius = parseFloat(movedEnd.getAttribute('r'))
-        movedBounds.x =
-          parseFloat(movedEnd.getAttribute('cx')) - movedRadius + xOffsetMoved
-        movedBounds.y =
-          parseFloat(movedEnd.getAttribute('cy')) - movedRadius + yOffsetMoved
-        // movedBounds.width = 4 * this.parentScale
-        // movedBounds.height = 4 * this.parentScale
+        const movedEndX = parseFloat(movedEnd.getAttribute('cx'))
+        const movedEndY = parseFloat(movedEnd.getAttribute('cy'))
+        movedBounds.x = movedEndX - movedRadius + xOffsetMoved
+        movedBounds.y = movedEndY - movedRadius + yOffsetMoved
         movedBounds.width = movedRadius * 2
         movedBounds.height = movedRadius * 2
-
-        const rect = createSVGElement('rect')
-        rect.setAttribute(
-          'x',
-          parseFloat(movedEnd.getAttribute('cx')) - 2 * this.parentScale
-        )
-        rect.setAttribute(
-          'y',
-          parseFloat(movedEnd.getAttribute('cy')) - 2 * this.parentScale
-        )
-        rect.setAttribute('width', 4 * this.parentScale)
-        rect.setAttribute('height', 4 * this.parentScale)
-        rect.setAttribute('fill', 'yellow')
-        rect.setAttribute('stroke', 'yellow')
-        rect.setAttribute('stroke-width', 2 * this.parentScale)
-
-        const show = false
-        if (show) {
-          if (!window.showers) {
-            window.showers = {}
-          }
-          if (!window.showers[this.parentScale]) {
-            console.log(`p s: ${this.parentScale}`)
-            console.log(`this s: ${this.scale}`)
-            console.log(movedEnd.getAttribute('r'))
-            console.log(xOffsetMoved)
-            console.log(this.x * this.parentScale)
-            console.log(movedEnd.getAttribute('cx'))
-            console.log(
-              parseFloat(movedEnd.getAttribute('cx')) -
-                2 * this.parentScale +
-                xOffsetMoved
-            )
-            console.log(
-              parseFloat(movedEnd.getAttribute('cx')) -
-                parseFloat(movedEnd.getAttribute('r')) +
-                xOffsetMoved
-            )
-
-            window.showers[this.parentScale] = true
-          }
-
-          this.svg.appendChild(rect)
-        }
 
         const { e: xOffsetOther, f: yOffsetOther } = otherEnd.getCTM()
         const unmovedBounds = this.svg.createSVGRect()
         const unmovedRadius = parseFloat(otherEnd.getAttribute('r'))
-        unmovedBounds.x =
-          parseFloat(otherEnd.getAttribute('cx')) - unmovedRadius + xOffsetOther
-        unmovedBounds.y =
-          parseFloat(otherEnd.getAttribute('cy')) - unmovedRadius + yOffsetOther
-        unmovedBounds.width = unmovedRadius * 2 //4 * this.parentScale
-        unmovedBounds.height = unmovedRadius * 2 //4 * this.parentScale
-
-        const rect2 = createSVGElement('rect')
-        rect2.setAttribute(
-          'x',
-          parseFloat(otherEnd.getAttribute('cx')) - 2 * this.parentScale
-        )
-        rect2.setAttribute(
-          'y',
-          parseFloat(otherEnd.getAttribute('cy')) - 2 * this.parentScale
-        )
-        rect2.setAttribute('width', 4 * this.parentScale)
-        rect2.setAttribute('height', 4 * this.parentScale)
-        rect2.setAttribute('fill', 'none')
-        rect2.setAttribute('stroke', 'orange')
-        rect2.setAttribute('stroke-width', 2 * this.parentScale)
-        if (show) {
-          this.svg.appendChild(rect2)
-          setTimeout(() => {
-            // console.table(movedBounds)
-            // console.log(`x: ${rect.getAttribute('x')}`)
-            // console.log(`y: ${rect.getAttribute('y')}`)
-            rect.remove()
-            rect2.remove()
-          }, 1000)
-        }
+        const unmovedEndX = parseFloat(otherEnd.getAttribute('cx'))
+        const unmovedEndY = parseFloat(otherEnd.getAttribute('cy'))
+        unmovedBounds.x = unmovedEndX - unmovedRadius + xOffsetOther
+        unmovedBounds.y = unmovedEndY - unmovedRadius + yOffsetOther
+        unmovedBounds.width = unmovedRadius * 2
+        unmovedBounds.height = unmovedRadius * 2
 
         return (
           (this.svg.checkIntersection(end, unmovedBounds) ||
