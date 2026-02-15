@@ -81,26 +81,26 @@ export class Switch extends ComponentContainer {
 
   onVoltageGained() {
     if (!this.pendingVoltageGain) {
-      const stepX = this.magnetisedOffsetX / 3
-      const stepY = this.magnetisedOffsetY / 3
-      const stepInterval = this.movementDelay / 3
-      for (let i = 1; i < 4; i++) {
-        setTimeout(() => {
-          this.switchWire.x2 = this.unmagnetisedPositionX + i * stepX
-          this.switchWire.y2 = this.unmagnetisedPositionY + i * stepY
-        }, i * stepInterval)
-      }
       setTimeout(() => {
         this.switchWire.x2 = this.unmagnetisedPositionX + this.magnetisedOffsetX
         this.switchWire.y2 = this.unmagnetisedPositionY + this.magnetisedOffsetY
         this.pendingVoltageGain = false
-      }, this.movementDelay)
+      }, 100)
     }
     this.pendingVoltageGain = true
   }
 
   onVoltageLost() {
     if (!this.pendingVoltageLoss) {
+      const stepX = this.magnetisedOffsetX / 3
+      const stepY = this.magnetisedOffsetY / 3
+      const stepInterval = this.movementDelay / 3
+      for (let i = 1; i < 4; i++) {
+        setTimeout(() => {
+          this.switchWire.x2 = this.unmagnetisedPositionX + (3 - i) * stepX
+          this.switchWire.y2 = this.unmagnetisedPositionY + (3 - i) * stepY
+        }, i * stepInterval)
+      }
       setTimeout(() => {
         this.switchWire.x2 = this.unmagnetisedPositionX
         this.switchWire.y2 = this.unmagnetisedPositionY

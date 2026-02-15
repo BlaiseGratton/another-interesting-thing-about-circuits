@@ -69,17 +69,6 @@ export class SplitterRelay extends Switch {
   onVoltageGained() {
     super.onVoltageGained()
     if (!this.pendingVoltageGain2) {
-      const stepX = this.magnetisedOffsetX / 3
-      const stepY = this.magnetisedOffsetY / 3
-      const stepInterval = this.movementDelay / 3
-      for (let i = 1; i < 4; i++) {
-        setTimeout(() => {
-          this.switchWire2.x2 =
-            this.unmagnetisedPositionX + this.switch2OffsetX + i * stepX
-          this.switchWire2.y2 =
-            this.unmagnetisedPositionY + this.switch2OffsetY - i * stepY
-        }, i * stepInterval)
-      }
       setTimeout(() => {
         this.switchWire2.x2 =
           this.unmagnetisedPositionX +
@@ -90,7 +79,7 @@ export class SplitterRelay extends Switch {
           this.switch2OffsetY -
           this.magnetisedOffsetY
         this.pendingVoltageGain2 = false
-      }, this.movementDelay)
+      }, 100)
     }
     this.pendingVoltageGain2 = true
   }
@@ -98,6 +87,17 @@ export class SplitterRelay extends Switch {
   onVoltageLost() {
     super.onVoltageLost()
     if (!this.pendingVoltageLoss2) {
+      const stepX = this.magnetisedOffsetX / 3
+      const stepY = this.magnetisedOffsetY / 3
+      const stepInterval = this.movementDelay / 3
+      for (let i = 1; i < 4; i++) {
+        setTimeout(() => {
+          this.switchWire2.x2 =
+            this.unmagnetisedPositionX + this.switch2OffsetX + (3 - i) * stepX
+          this.switchWire2.y2 =
+            this.unmagnetisedPositionY + this.switch2OffsetY - (3 - i) * stepY
+        }, i * stepInterval)
+      }
       setTimeout(() => {
         this.switchWire2.x2 = this.unmagnetisedPositionX + this.switch2OffsetX
         this.switchWire2.y2 = this.unmagnetisedPositionY + this.switch2OffsetY
