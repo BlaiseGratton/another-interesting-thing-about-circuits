@@ -9,6 +9,7 @@ export class Wire extends ComponentBase {
   /* prettier-ignore */ get x2() { return parseFloat(this.getAttribute('x2')) }
   /* prettier-ignore */ get y2() { return parseFloat(this.getAttribute('y2')) }
   /* prettier-ignore */ get parentScale() { return parseFloat(this.getAttribute('parentscale') || 1) }
+  /* prettier-ignore */ get scale() { return parseFloat(this.getAttribute('scale') || 1)  }
   /* prettier-ignore */ get parentOffsetX() { return this.parentElement.parentOffsetX }
   /* prettier-ignore */ get parentOffsetY() { return this.parentElement.parentOffsetY }
   /* prettier-ignore */ get hasVoltage() { return this.hasAttribute('voltage') }

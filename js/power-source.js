@@ -31,14 +31,20 @@ export class PowerSource extends Wire {
   drawSymbol() {
     this.line1.setAttribute('x1', this.x1 * this.parentScale)
     this.line1.setAttribute('y1', this.y1 * this.parentScale)
-    this.line1.setAttribute('x2', (this.x1 - 8) * this.parentScale)
-    this.line1.setAttribute('y2', (this.y1 - 25) * this.parentScale)
-    this.line1.setAttribute('stroke-width', 3 * this.parentScale)
-    this.line2.setAttribute('x1', (this.x1 + 8) * this.parentScale)
-    this.line2.setAttribute('y1', (this.y1 - 25) * this.parentScale)
+    this.line1.setAttribute('x2', (this.x1 - 8 * this.scale) * this.parentScale)
+    this.line1.setAttribute(
+      'y2',
+      (this.y1 - 25 * this.scale) * this.parentScale
+    )
+    this.line1.setAttribute('stroke-width', 3 * this.parentScale * this.scale)
+    this.line2.setAttribute('x1', (this.x1 + 8 * this.scale) * this.parentScale)
+    this.line2.setAttribute(
+      'y1',
+      (this.y1 - 25 * this.scale) * this.parentScale
+    )
     this.line2.setAttribute('x2', this.x1 * this.parentScale)
     this.line2.setAttribute('y2', this.y1 * this.parentScale)
-    this.line2.setAttribute('stroke-width', 3 * this.parentScale)
+    this.line2.setAttribute('stroke-width', 3 * this.parentScale * this.scale)
   }
 }
 
