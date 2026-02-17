@@ -5,11 +5,11 @@ export class OrGate extends ComponentContainer {
     super()
     this.leftPorts = 2
     this.rightPorts = 1
-    this.width = 75
-    this.height = 125
   }
 
   connectedCallback() {
+    this.width = 75
+    this.height = 125
     this.setAttribute('leftPorts', this.leftPorts)
     this.setAttribute('rightports', this.rightPorts)
     super.connectedCallback()
