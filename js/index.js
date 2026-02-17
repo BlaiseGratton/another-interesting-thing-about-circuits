@@ -17,3 +17,4 @@ import { NandGate } from './gates/nand-gate.js'
 import { XorGate } from './gates/xor-gate.js'
 
 import { HalfAdder } from './adders/half-adder.js'
+import { FullAdder } from './adders/full-adder.js'
