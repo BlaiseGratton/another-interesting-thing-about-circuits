@@ -21,17 +21,21 @@ export class WireCoil extends Wire {
   handleVoltageChange(oldVal, newVal) {
     super.handleVoltageChange(oldVal, newVal)
     if (this.hasVoltage) {
-      this.dispatchEvent(
-        new CustomEvent('voltage-gained', {
-          bubbles: true,
-          cancelable: true,
-          detail: null
-        })
-      )
+      setTimeout(() => {
+        this.dispatchEvent(
+          new CustomEvent('voltage-gained', {
+            bubbles: true,
+            cancelable: true,
+            detail: null
+          })
+        )
+      }, 10)
     } else {
-      this.dispatchEvent(
-        new CustomEvent('voltage-lost', { bubbles: true, cancelable: false })
-      )
+      setTimeout(() => {
+        this.dispatchEvent(
+          new CustomEvent('voltage-lost', { bubbles: true, cancelable: false })
+        )
+      }, 10)
     }
   }
 

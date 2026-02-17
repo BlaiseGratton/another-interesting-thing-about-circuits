@@ -4,12 +4,16 @@ import { PowerSource } from './power-source.js'
 import { GroundConnection } from './ground-connection.js'
 import { WireCoil } from './wire-coil.js'
 import { Bulb } from './bulb-element.js'
+
 import { Switch } from './switches/switch-element.js'
 import { InverterSwitch } from './switches/inverter-switch.js'
 import { SplitterRelay } from './relays/splitter-relay.js'
 import { DoubleThrowRelay } from './relays/double-throw-relay.js'
+
 import { AndGate } from './gates/and-gate.js'
 import { OrGate } from './gates/or-gate.js'
 import { NorGate } from './gates/nor-gate.js'
 import { NandGate } from './gates/nand-gate.js'
 import { XorGate } from './gates/xor-gate.js'
+
+import { HalfAdder } from './adders/half-adder.js'
