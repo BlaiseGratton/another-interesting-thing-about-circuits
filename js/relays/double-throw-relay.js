@@ -5,11 +5,11 @@ export class DoubleThrowRelay extends ComponentContainer {
     super()
     this.leftPorts = 1
     this.rightPorts = 1
-    this.width = 200
-    this.height = 125
   }
 
   connectedCallback() {
+    this.width = 200
+    this.height = 125
     this.setAttribute('leftports', this.leftPorts)
     this.setAttribute('rightports', this.rightPorts)
     super.connectedCallback()
