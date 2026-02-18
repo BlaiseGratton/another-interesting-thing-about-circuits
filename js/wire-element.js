@@ -71,6 +71,11 @@ export class Wire extends ComponentBase {
       this.color = 'black'
     }
     this.changeColor(this.color)
+    if (this.value) {
+      this.dispatchEvent(
+        new CustomEvent('voltage-changed', { bubbles: true, cancelable: false })
+      )
+    }
   }
 
   handleDraw(attribute, value) {

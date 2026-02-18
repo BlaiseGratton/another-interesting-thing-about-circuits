@@ -5,3 +5,11 @@ svg {
 .draggable {
   cursor: move;
 }
+
+.bit-display {
+  font: normal 8px sans-serif;
+}
+
+.total-display {
+  font-family: sans-serif;
+}

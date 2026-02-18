@@ -34,29 +34,47 @@ export class GroundConnection extends Wire {
   }
 
   drawSymbol() {
-    this.line1.setAttribute('x1', (this.x1 - 14) * this.parentScale)
+    this.line1.setAttribute(
+      'x1',
+      (this.x1 - 14 * this.scale) * this.parentScale
+    )
     this.line1.setAttribute('y1', this.y1 * this.parentScale)
-    this.line1.setAttribute('x2', (this.x1 + 14) * this.parentScale)
+    this.line1.setAttribute(
+      'x2',
+      (this.x1 + 14 * this.scale) * this.parentScale
+    )
     this.line1.setAttribute('y2', this.y1 * this.parentScale)
-    this.line1.setAttribute('stroke-width', 3 * this.parentScale)
+    this.line1.setAttribute('stroke-width', 3 * this.parentScale * this.scale)
 
-    this.line2.setAttribute('x1', (this.x1 - 10) * this.parentScale)
-    this.line2.setAttribute('y1', (this.y1 + BAR_SPACING) * this.parentScale)
-    this.line2.setAttribute('x2', (this.x1 + 10) * this.parentScale)
-    this.line2.setAttribute('y2', (this.y1 + BAR_SPACING) * this.parentScale)
-    this.line2.setAttribute('stroke-width', 3 * this.parentScale)
+    this.line2.setAttribute(
+      'x1',
+      (this.x1 - 10 * this.scale) * this.parentScale
+    )
+    this.line2.setAttribute(
+      'y1',
+      (this.y1 + BAR_SPACING * this.scale) * this.parentScale
+    )
+    this.line2.setAttribute(
+      'x2',
+      (this.x1 + 10 * this.scale) * this.parentScale
+    )
+    this.line2.setAttribute(
+      'y2',
+      (this.y1 + BAR_SPACING * this.scale) * this.parentScale
+    )
+    this.line2.setAttribute('stroke-width', 3 * this.parentScale * this.scale)
 
-    this.line3.setAttribute('x1', (this.x1 - 7) * this.parentScale)
+    this.line3.setAttribute('x1', (this.x1 - 7 * this.scale) * this.parentScale)
     this.line3.setAttribute(
       'y1',
-      (this.y1 + BAR_SPACING * 2) * this.parentScale
+      (this.y1 + BAR_SPACING * 2 * this.scale) * this.parentScale
     )
-    this.line3.setAttribute('x2', (this.x1 + 7) * this.parentScale)
+    this.line3.setAttribute('x2', (this.x1 + 7 * this.scale) * this.parentScale)
     this.line3.setAttribute(
       'y2',
-      (this.y1 + BAR_SPACING * 2) * this.parentScale
+      (this.y1 + BAR_SPACING * 2 * this.scale) * this.parentScale
     )
-    this.line3.setAttribute('stroke-width', 3 * this.parentScale)
+    this.line3.setAttribute('stroke-width', 3 * this.parentScale * this.scale)
   }
 }
 
