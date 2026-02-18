@@ -1,9 +1,12 @@
+import { debounce } from './debounce.js'
+
 export class ComponentGraph {
   // based on https://en.wikipedia.org/wiki/Ford%E2%80%93Fulkerson_algorithm
   constructor() {
     this.elements = new Set()
     this.sources = new Set()
     this.sinks = new Set()
+    this.debouncedDetermineFlow = debounce(this._determineFlow, 40)
   }
 
   get allElements() {
@@ -21,6 +24,10 @@ export class ComponentGraph {
   }
 
   determineFlow() {
+    this.debouncedDetermineFlow()
+  }
+
+  _determineFlow() {
     const visited = new Set()
     const paths = []
     const toVisit = []
