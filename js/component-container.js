@@ -137,7 +137,10 @@ export class ComponentContainer extends HTMLElement {
   createPorts(side, portCountAttribute) {
     const portCount = parseInt(portCountAttribute)
     if (this.isRoot || !portCount) return
-    const offset = 8
+    const offsetOuter =
+      8 * (parseFloat(this.getAttribute('portscaleouter')) || 1)
+    const offsetInner =
+      8 * (parseFloat(this.getAttribute('portscaleinner')) || 1)
 
     const outsideHeight = (this.height * this.scale) / (portCount + 1)
     const outsideWidth = (this.width * this.scale) / (portCount + 1)
@@ -145,7 +148,7 @@ export class ComponentContainer extends HTMLElement {
     for (let i = 1; i <= portCount; i++) {
       if (side === 'left') {
         const outerWire = document.createElement('wire-element')
-        outerWire.setAttribute('x1', this.x - offset)
+        outerWire.setAttribute('x1', this.x - offsetOuter)
         outerWire.setAttribute('y1', this.y + outsideHeight * i)
         outerWire.setAttribute('x2', this.x)
         outerWire.setAttribute('y2', this.y + outsideHeight * i)
@@ -156,7 +159,7 @@ export class ComponentContainer extends HTMLElement {
         const innerWire = document.createElement('wire-element')
         innerWire.setAttribute('x1', 0)
         innerWire.setAttribute('y1', (this.height / (portCount + 1)) * i)
-        innerWire.setAttribute('x2', offset)
+        innerWire.setAttribute('x2', offsetInner)
         innerWire.setAttribute('y2', (this.height / (portCount + 1)) * i)
         innerWire.setAttribute('id', 'inner-l' + i)
         this.appendChild(innerWire)
@@ -167,7 +170,10 @@ export class ComponentContainer extends HTMLElement {
       }
       if (side === 'right') {
         const outerWire = document.createElement('wire-element')
-        outerWire.setAttribute('x1', this.x + this.width * this.scale + offset)
+        outerWire.setAttribute(
+          'x1',
+          this.x + this.width * this.scale + offsetOuter
+        )
         outerWire.setAttribute('y1', this.y + outsideHeight * i)
         outerWire.setAttribute('x2', this.x + this.width * this.scale)
         outerWire.setAttribute('y2', this.y + outsideHeight * i)
@@ -178,7 +184,7 @@ export class ComponentContainer extends HTMLElement {
         const innerWire = document.createElement('wire-element')
         innerWire.setAttribute('x1', this.width)
         innerWire.setAttribute('y1', (this.height / (portCount + 1)) * i)
-        innerWire.setAttribute('x2', this.width - offset)
+        innerWire.setAttribute('x2', this.width - offsetInner)
         innerWire.setAttribute('y2', (this.height / (portCount + 1)) * i)
         innerWire.setAttribute('id', 'inner-r' + i)
         this.appendChild(innerWire)
@@ -190,7 +196,7 @@ export class ComponentContainer extends HTMLElement {
       if (side === 'top') {
         const outerWire = document.createElement('wire-element')
         outerWire.setAttribute('x1', this.x + outsideWidth * i)
-        outerWire.setAttribute('y1', this.y - offset)
+        outerWire.setAttribute('y1', this.y - offsetOuter)
         outerWire.setAttribute('x2', this.x + outsideWidth * i)
         outerWire.setAttribute('y2', this.y)
         outerWire.setAttribute('parentscale', this.parentScale)
@@ -201,7 +207,7 @@ export class ComponentContainer extends HTMLElement {
         innerWire.setAttribute('x1', (this.width / (portCount + 1)) * i)
         innerWire.setAttribute('y1', 0)
         innerWire.setAttribute('x2', (this.width / (portCount + 1)) * i)
-        innerWire.setAttribute('y2', offset)
+        innerWire.setAttribute('y2', offsetInner)
         innerWire.setAttribute('id', 'inner-t' + i)
         this.appendChild(innerWire)
 
@@ -212,7 +218,10 @@ export class ComponentContainer extends HTMLElement {
       if (side === 'bottom') {
         const outerWire = document.createElement('wire-element')
         outerWire.setAttribute('x1', this.x + outsideWidth * i)
-        outerWire.setAttribute('y1', this.y + this.height * this.scale + offset)
+        outerWire.setAttribute(
+          'y1',
+          this.y + this.height * this.scale + offsetOuter
+        )
         outerWire.setAttribute('x2', this.x + outsideWidth * i)
         outerWire.setAttribute('y2', this.y + this.height * this.scale)
         outerWire.setAttribute('parentscale', this.parentScale)
@@ -223,7 +232,7 @@ export class ComponentContainer extends HTMLElement {
         innerWire.setAttribute('x1', (this.width / (portCount + 1)) * i)
         innerWire.setAttribute('y1', this.height)
         innerWire.setAttribute('x2', (this.width / (portCount + 1)) * i)
-        innerWire.setAttribute('y2', this.height - offset)
+        innerWire.setAttribute('y2', this.height - offsetInner)
         innerWire.setAttribute('id', 'inner-t' + i)
         this.appendChild(innerWire)
 

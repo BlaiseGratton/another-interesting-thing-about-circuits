@@ -8,6 +8,7 @@ import { Bulb } from './bulb-element.js'
 import { PowerBank } from './utilities/power-bank.js'
 import { GroundBank } from './utilities/ground-bank.js'
 import { BinaryToDecimalBank } from './utilities/binary-to-decimal-bank.js'
+import { OnesComplement } from './utilities/ones-complement.js'
 
 import { Switch } from './switches/switch-element.js'
 import { InverterSwitch } from './switches/inverter-switch.js'

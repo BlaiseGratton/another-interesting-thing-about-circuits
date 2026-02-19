@@ -39,13 +39,13 @@ export class Wire extends ComponentBase {
       this.svg.appendChild(this.line)
       if (this.end1) {
         this.svg.appendChild(this.end1)
-        this.end1.setAttribute('r', this.endRadius * this.parentScale)
+        this.end1.setAttribute('r', this.endRadius * this.scale)
         this.end1.classList.add('wire-end')
         this.addEventListeners(this.end1, 'x1', 'y1')
       }
       this.svg.appendChild(this.end2)
       this.line.setAttribute('stroke', this.color)
-      this.end2.setAttribute('r', this.endRadius * this.parentScale)
+      this.end2.setAttribute('r', this.endRadius * this.scale)
       this.end2.classList.add('wire-end')
       this.drawAllPoints()
       this.line.onmouseenter = () => this.changeColor('orange')
@@ -164,6 +164,8 @@ export class Wire extends ComponentBase {
     }
     end.onmouseleave = () => {
       this.changeColor(this.color)
+      this.endRadius = 1
+      this.drawAllPoints()
     }
     end.onmousemove = (event) => {
       if (this.isDragging) {

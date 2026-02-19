@@ -7,6 +7,7 @@
     <script src="/js/index.js" type="module"></script>
   </head>
   <body>
+    <a href="./pages/eightbitadder.html">8-bit Adder</a>
     <label>Scale</label>
     <input
       id="container-scale"
@@ -22,24 +23,10 @@
         y="70"
         width="211"
       ></binary-to-decimal-bank>
+      <ones-complement x="28" y="126"></ones-complement>
+      <ground-bank width="211" x="28" y="192"></ground-bank>
 
-      <power-bank x="216" y="18"></power-bank>
-      <binary-to-decimal-bank
-        x="216"
-        y="70"
-        width="211"
-      ></binary-to-decimal-bank>
-
-      <eight-bit-adder x="28" y="128"></eight-bit-adder>
-
-      <binary-to-decimal-bank
-        width="400"
-        x="28"
-        y="269"
-      ></binary-to-decimal-bank>
-      <ground-bank width="400" x="28" y="316"></ground-bank>
-
-      <power-source x1="500" y1="20" x2="500" y2="162"></power-source>
+      <power-source x1="20" y1="20" x2="20" y2="142"></power-source>
     </component-container>
   </body>
   <script>
