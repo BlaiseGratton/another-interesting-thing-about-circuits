@@ -32,9 +32,11 @@ export class BinaryToDecimalBank extends ComponentContainer {
         )
 
         const displayElement = createSVGElement('text')
-        displayElement.setAttribute('x', wire.x1)
-        displayElement.setAttribute('y', wire.y1)
+        displayElement.setAttribute('x', wire.x1 * this.parentScale)
+        displayElement.setAttribute('y', wire.y1 * this.parentScale)
         displayElement.classList.add('bit-display')
+        displayElement.style.fontSize = `${8 * this.parentScale}px`
+        displayElement.wire = wire
         this.svg.appendChild(displayElement)
         this.displayElements.push(displayElement)
       }
@@ -49,14 +51,35 @@ export class BinaryToDecimalBank extends ComponentContainer {
       rect.setAttribute('width', cx)
       rect.setAttribute('height', cy)
       this.svg.appendChild(rect)
+      this.displayBox = rect
 
       const totalDisplay = createSVGElement('text')
       totalDisplay.classList.add('total-display')
       totalDisplay.setAttribute('x', cx - 10)
       totalDisplay.setAttribute('y', cy + 4)
       this.svg.appendChild(totalDisplay)
-      this.total = totalDisplay
+      this.totalDisplay = totalDisplay
     }
+  }
+
+  handleScaleChange(oldVal, newVal) {
+    super.handleScaleChange(oldVal, newVal)
+    this.displayElements.forEach((el) => {
+      el.style.fontSize = `${8 * this.parentScale}px`
+      el.setAttribute('x', el.wire.x1 * this.parentScale)
+      el.setAttribute('y', el.wire.y1 * this.parentScale)
+    })
+
+    this.totalDisplay.style.fontSize = `${14 * this.parentScale}px`
+
+    const cx = (this.width / 2) * this.parentScale
+    const cy = (this.height / 2) * this.parentScale
+    this.displayBox.setAttribute('x', cx / 2)
+    this.displayBox.setAttribute('y', cy / 2)
+    this.displayBox.setAttribute('width', cx)
+    this.displayBox.setAttribute('height', cy)
+    this.totalDisplay.setAttribute('x', cx - 10 * this.parentScale)
+    this.totalDisplay.setAttribute('y', cy + 4 * this.parentScale)
   }
 
   handleVoltageChange() {
@@ -68,7 +91,7 @@ export class BinaryToDecimalBank extends ComponentContainer {
       })
       .join('')
     const value = parseInt(binaryRep, 2)
-    this.total.textContent = value
+    this.totalDisplay.textContent = value
   }
 }
 

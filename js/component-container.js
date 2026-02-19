@@ -131,6 +131,7 @@ export class ComponentContainer extends HTMLElement {
       'width',
       this.width * this.scale * this.parentScale
     )
+    this.border.setAttribute('stroke-width', 1 * this.parentScale)
   }
 
   createPorts(side, portCountAttribute) {

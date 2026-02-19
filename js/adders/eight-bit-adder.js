@@ -25,7 +25,6 @@ export class EightBitAdder extends ComponentContainer {
       carryInWire1.x2 = this.width - 9
       carryInWire1.y2 = (this.height / 2) * 0.44
       this.appendChild(carryInWire1)
-      this.carryInWire1 = carryInWire1
 
       const carryInWire2 = document.createElement('wire-element')
       carryInWire2.x1 = this.width - 9
@@ -33,7 +32,20 @@ export class EightBitAdder extends ComponentContainer {
       carryInWire2.x2 = this.width - 25
       carryInWire2.y2 = 27
       this.appendChild(carryInWire2)
-      this.carryInWire2 = carryInWire2
+
+      const carryOutWire1 = document.createElement('wire-element')
+      carryOutWire1.x1 = 28
+      carryOutWire1.y1 = this.height - 32
+      carryOutWire1.x2 = 8
+      carryOutWire1.y2 = this.height - 32
+      this.appendChild(carryOutWire1)
+
+      const carryOutWire2 = document.createElement('wire-element')
+      carryOutWire2.x1 = 8
+      carryOutWire2.y1 = this.height - 32
+      carryOutWire2.x2 = 8
+      carryOutWire2.y2 = this.height / 2
+      this.appendChild(carryOutWire2)
 
       for (let i = 0; i < 8; i++) {
         const adderName = 'adder' + (i + 1)
