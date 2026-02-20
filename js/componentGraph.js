@@ -40,11 +40,11 @@ export class ComponentGraph {
     })
 
     while (toVisit.length) {
-      if (logging?.componentGraph?.determineFlow) {
+      if (window.logging?.componentGraph?.determineFlow) {
         console.log('Size: ' + toVisit.length)
       }
       const currentWire = toVisit.shift()
-      if (logging?.componentGraph?.determineFlow) {
+      if (window.logging?.componentGraph?.determineFlow) {
         console.log('checking ' + currentWire.element.id)
       }
       if (this.sinks.has(currentWire.element)) {

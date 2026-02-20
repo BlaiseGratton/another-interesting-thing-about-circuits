@@ -13,20 +13,87 @@
       id="container-scale"
       type="number"
       step="0.01"
-      value="4"
+      value="2"
       min="0.01"
     />
+    <p>
+      Switch between addition and subtraction. Subtraction here only works
+      properly when the minuend (bank A on the left) is greater than or equal to
+      the subtrahend (bank B on the right).
+    </p>
+    <p>
+      If the output light is on during addition, there is an overflow (greater
+      than 255)
+    </p>
+    <p>
+      If the output light is on during subtraction, there is a negative number
+      (-256 plus the output number)
+    </p>
     <component-container height="1000" width="1000" id="c">
+      <!-- A input -->
       <power-bank x="28" y="18"></power-bank>
       <binary-to-decimal-bank
         x="28"
         y="70"
         width="211"
       ></binary-to-decimal-bank>
-      <ones-complement x="28" y="126"></ones-complement>
-      <ground-bank width="211" x="28" y="192"></ground-bank>
+      <wire-element x1="51" y1="118" x2="74" y2="240"></wire-element>
+      <wire-element x1="75" y1="118" x2="98" y2="240"></wire-element>
+      <wire-element x1="99" y1="118" x2="122" y2="240"></wire-element>
+      <wire-element x1="123" y1="118" x2="146" y2="240"></wire-element>
+      <wire-element x1="146" y1="118" x2="168" y2="240"></wire-element>
+      <wire-element x1="170" y1="118" x2="192" y2="240"></wire-element>
+      <wire-element x1="193" y1="118" x2="216" y2="240"></wire-element>
+      <wire-element x1="217" y1="118" x2="239" y2="240"></wire-element>
+      <!-- end A input -->
 
-      <power-source x1="20" y1="20" x2="20" y2="142"></power-source>
+      <!-- B input -->
+      <power-bank x="240" y="18"></power-bank>
+      <binary-to-decimal-bank
+        x="240"
+        y="70"
+        width="211"
+      ></binary-to-decimal-bank>
+      <ones-complement x="240" y="126"></ones-complement>
+      <binary-to-decimal-bank
+        x="240"
+        y="192"
+        width="211"
+      ></binary-to-decimal-bank>
+      <!-- end B input -->
+
+      <!-- adder -->
+      <eight-bit-adder x="51" y="248"></eight-bit-adder>
+      <binary-to-decimal-bank
+        x="51"
+        y="388"
+        width="400"
+      ></binary-to-decimal-bank>
+      <ground-bank x="51" y="446"></ground-bank>
+      <!-- end adder -->
+
+      <!-- addition/subtraction controls -->
+      <power-source x1="500" y1="20" x2="500" y2="142"></power-source>
+      <!-- inverter -->
+      <wire-element x1="232" y1="150" x2="232" y2="123"></wire-element>
+      <wire-element x1="232" y1="123" x2="480" y2="123"></wire-element>
+      <wire-element x1="480" y1="123" x2="490" y2="140"></wire-element>
+      <!-- carry in -->
+      <wire-element x1="489" y1="141" x2="458" y2="310"></wire-element>
+      <!-- under/overflow indicator -->
+      <wire-element x1="490" y1="142" x2="458" y2="236"></wire-element>
+      <wire-element x1="458" y1="236" x2="48" y2="236"></wire-element>
+      <wire-element x1="48" y1="236" x2="11" y2="513"></wire-element>
+      <wire-element x1="42" y1="310" x2="11" y2="525"></wire-element>
+      <xor-gate x="20" y="500" scale=".5"></xor-gate>
+      <bulb-element x1="91" y1="519" x2="120" y2="530"></bulb-element>
+      <ground-connection
+        x1="120"
+        y1="550"
+        x2="120"
+        y2="530"
+      ></ground-connection>
+      <!-- end addition/subtraction controls -->
     </component-container>
   </body>
   <script>
