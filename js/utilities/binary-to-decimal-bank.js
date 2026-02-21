@@ -6,12 +6,14 @@ export class BinaryToDecimalBank extends ComponentContainer {
     super()
     this.topPorts = 8
     this.bottomPorts = 8
+    this.leftPorts = 1
   }
 
   connectedCallback() {
     this.height = 40
     this.setAttribute('topPorts', this.topPorts)
     this.setAttribute('bottomPorts', this.bottomPorts)
+    this.setAttribute('leftports', this.leftPorts)
     this.digitWires = []
     this.displayElements = []
     super.connectedCallback()
@@ -59,6 +61,20 @@ export class BinaryToDecimalBank extends ComponentContainer {
       totalDisplay.setAttribute('y', cy + 4)
       this.svg.appendChild(totalDisplay)
       this.totalDisplay = totalDisplay
+
+      const signedUnsignedSignal = document.createElement('ground-connection')
+      signedUnsignedSignal.setAttribute('scale', 0.5)
+      signedUnsignedSignal.x1 = 14
+      signedUnsignedSignal.y1 = this.height - 8
+      signedUnsignedSignal.x2 = 8
+      signedUnsignedSignal.y2 = this.height / 2
+      signedUnsignedSignal.value = 1
+      this.appendChild(signedUnsignedSignal)
+      this.signedUnsignedSignal = signedUnsignedSignal
+      signedUnsignedSignal.addEventListener('voltage-changed', (event) => {
+        this.signed = event.target.hasVoltage
+        this.handleVoltageChange()
+      })
     }
   }
 
@@ -85,12 +101,20 @@ export class BinaryToDecimalBank extends ComponentContainer {
   handleVoltageChange() {
     const binaryRep = this.digitWires
       .map((w, index) => {
-        const hasVoltage = Boolean(w.getAttribute('voltage'))
-        this.displayElements[index].textContent = hasVoltage ? w.value : 0
-        return hasVoltage ? '1' : '0'
+        this.displayElements[index].textContent = w.hasVoltage ? w.value : 0
+        return w.hasVoltage ? '1' : '0'
       })
       .join('')
-    const value = parseInt(binaryRep, 2)
+    let value
+    if (this.signed) {
+      if (binaryRep[0] === '1') {
+        value = parseInt(binaryRep.slice(1), 2) - 128
+      } else {
+        value = parseInt(binaryRep, 2)
+      }
+    } else {
+      value = parseInt(binaryRep, 2)
+    }
     this.totalDisplay.textContent = value
   }
 }

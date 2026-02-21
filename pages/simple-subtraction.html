@@ -7,16 +7,7 @@
     <script src="/js/index.js" type="module"></script>
   </head>
   <body>
-    <a href="./pages/eight-bit-adder.html">8-bit Adder</a>
-    <a href="./pages/simple-subtraction.html">Simple Subtraction</a>
-    <label>Scale</label>
-    <input
-      id="container-scale"
-      type="number"
-      step="0.01"
-      value="2"
-      min="0.01"
-    />
+    <a href="/">Home</a>
     <p>
       Switch between addition and subtraction. Subtraction here only works
       properly when the minuend (bank A on the left) is greater than or equal to
@@ -30,7 +21,7 @@
       If the output light is on during subtraction, there is a negative number
       (-256 plus the output number)
     </p>
-    <component-container height="1000" width="1000">
+    <component-container height="1000" width="1000" scale="2">
       <!-- A input -->
       <power-bank x="28" y="18"></power-bank>
       <binary-to-decimal-bank
@@ -97,21 +88,4 @@
       <!-- end addition/subtraction controls -->
     </component-container>
   </body>
-  <script>
-    const scale = document.querySelector('#container-scale')
-    const container = document.querySelector('component-container')
-    container.setAttribute('scale', scale.value)
-    scale.onchange = (event) => {
-      container.setAttribute('scale', event.target.value)
-    }
-    this.logging = {
-      wire: {
-        addWireConnection: false,
-        disconnectWire: false
-      },
-      componentGraph: {
-        determineFlow: false
-      }
-    }
-  </script>
 </html>
