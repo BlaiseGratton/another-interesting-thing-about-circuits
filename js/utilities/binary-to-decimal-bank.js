@@ -62,16 +62,16 @@ export class BinaryToDecimalBank extends ComponentContainer {
       this.svg.appendChild(totalDisplay)
       this.totalDisplay = totalDisplay
 
-      const signedUnsignedSignal = document.createElement('ground-connection')
-      signedUnsignedSignal.setAttribute('scale', 0.5)
-      signedUnsignedSignal.x1 = 14
-      signedUnsignedSignal.y1 = this.height - 8
-      signedUnsignedSignal.x2 = 8
-      signedUnsignedSignal.y2 = this.height / 2
-      signedUnsignedSignal.value = 1
-      this.appendChild(signedUnsignedSignal)
-      this.signedUnsignedSignal = signedUnsignedSignal
-      signedUnsignedSignal.addEventListener('voltage-changed', (event) => {
+      this.signedUnsignedSignal = this.addWire(
+        8,
+        this.height / 2,
+        14,
+        this.height - 8,
+        'ground-connection'
+      )
+      this.signedUnsignedSignal.setAttribute('scale', 0.5)
+      this.signedUnsignedSignal.value = 1
+      this.signedUnsignedSignal.addEventListener('voltage-changed', (event) => {
         this.signed = event.target.hasVoltage
         this.handleVoltageChange()
       })

@@ -21,8 +21,8 @@ export class GroundBank extends ComponentContainer {
           ground.setAttribute('scale', 0.5)
           ground.x1 = slot * (i + 1)
           ground.x2 = slot * (i + 1)
-          ground.y1 = this.height - 8
-          ground.y2 = 8
+          ground.y1 = 8
+          ground.y2 = this.height - 8
           this.appendChild(ground)
         }
       }

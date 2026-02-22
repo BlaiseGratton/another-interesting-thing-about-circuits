@@ -20,50 +20,38 @@ export class OnesComplement extends ComponentContainer {
       if (this.bottomPorts) {
         const slot = this.width / 9
 
-        const invertWire = document.createElement('wire-element')
-        invertWire.x1 = 8
-        invertWire.y1 = this.height / 2
-        invertWire.x2 = 11
-        invertWire.y2 = 35
-        this.appendChild(invertWire)
+        this.invertWire1 = this.addWire(8, this.height / 2, 8, 4)
 
         for (let i = 0; i < this.topPorts; i++) {
           const xorGate = document.createElement('xor-gate')
-          xorGate.setAttribute('portscaleouter', 0.05)
-          xorGate.setAttribute('scale', 0.13)
-          xorGate.x = slot * i + 16 * this.scale
-          xorGate.y = 20
+          xorGate.setAttribute('portscaleouter', 0.2)
+          xorGate.setAttribute('scale', 0.25)
+          xorGate.x = slot * i + 11 * this.scale
+          xorGate.y = 10
           this.appendChild(xorGate)
 
-          const invertWire = document.createElement('wire-element')
-          invertWire.x1 = slot * i + 10 * this.scale
-          invertWire.y1 = 35
-          invertWire.x2 = slot * i + 14 * this.scale
-          invertWire.y2 = 27
-          this.appendChild(invertWire)
+          this.addWire(
+            slot * i + 8 * this.scale,
+            4,
+            slot * i + 17 * this.scale,
+            8
+          )
 
           if (i < this.topPorts - 1) {
-            const invertThruWire = document.createElement('wire-element')
-            invertThruWire.x1 = slot * i + 11 * this.scale
-            invertThruWire.y1 = 37
-            invertThruWire.x2 = slot * (i + 1) + 10 * this.scale
-            invertThruWire.y2 = 37
-            this.appendChild(invertThruWire)
+            this.addWire(
+              slot * i + 8 + this.scale,
+              4,
+              slot * (i + 1) + 10 * this.scale,
+              4
+            )
           }
 
-          const inputWire = document.createElement('wire-element')
-          inputWire.x1 = slot * (i + 1)
-          inputWire.y1 = 8
-          inputWire.x2 = slot * i + 14 * this.scale
-          inputWire.y2 = 22
-          this.appendChild(inputWire)
-
-          const outputWire = document.createElement('wire-element')
-          outputWire.x1 = slot * (i + 1) + 10 * this.scale
-          outputWire.y1 = 25
-          outputWire.x2 = slot * (i + 1)
-          outputWire.y2 = this.height - 8
-          this.appendChild(outputWire)
+          this.addWire(
+            slot * (i + 1) - 3,
+            this.height - 8,
+            slot * (i + 1),
+            this.height - 8
+          )
         }
       }
     }
