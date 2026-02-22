@@ -280,6 +280,16 @@ export class ComponentContainer extends HTMLElement {
       })
       .filter(Boolean)
   }
+
+  addWire(x1, y1, x2, y2, type) {
+    const wire = document.createElement(type || 'wire-element')
+    wire.x1 = x1
+    wire.y1 = y1
+    wire.x2 = x2
+    wire.y2 = y2
+    this.appendChild(wire)
+    return wire
+  }
 }
 
 customElements.define('component-container', ComponentContainer)

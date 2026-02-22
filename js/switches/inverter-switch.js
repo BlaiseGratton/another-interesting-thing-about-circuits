@@ -1,6 +1,6 @@
-import { Switch } from './switch-element.js'
+import { SimpleRelay } from '../relays/simple-relay.js'
 
-export class InverterSwitch extends Switch {
+export class InverterSwitch extends SimpleRelay {
   get magnetisedOffsetX() {
     return -7
   }

@@ -1,6 +1,6 @@
-import { Switch } from '../switches/switch-element.js'
+import { SimpleRelay } from './simple-relay.js'
 
-export class SplitterRelay extends Switch {
+export class SplitterRelay extends SimpleRelay {
   constructor() {
     super()
     this.leftPorts = 1

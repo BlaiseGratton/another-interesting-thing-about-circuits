@@ -10,7 +10,7 @@ import { GroundBank } from './utilities/ground-bank.js'
 import { BinaryToDecimalBank } from './utilities/binary-to-decimal-bank.js'
 import { OnesComplement } from './utilities/ones-complement.js'
 
-import { Switch } from './switches/switch-element.js'
+import { SimpleRelay } from './relays/simple-relay.js'
 import { InverterSwitch } from './switches/inverter-switch.js'
 import { SplitterRelay } from './relays/splitter-relay.js'
 import { DoubleThrowRelay } from './relays/double-throw-relay.js'
