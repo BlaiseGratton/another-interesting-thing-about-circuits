@@ -24,14 +24,14 @@ export class SimpleRelay extends ComponentContainer {
 
   constructor() {
     super()
+    this.leftPorts = 2
+    this.rightPorts = 1
   }
 
   connectedCallback() {
     if (this.isHorizontal) {
-      this.leftPorts = 2
-      this.rightPorts = 1
-      this.width = 200
-      this.height = 110
+      if (!this.width) this.width = 200
+      if (!this.height) this.height = 110
       this.setAttribute('leftports', this.leftPorts)
       this.setAttribute('rightports', this.rightPorts)
       super.connectedCallback()
