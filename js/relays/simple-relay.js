@@ -47,10 +47,10 @@ export class SimpleRelay extends ComponentContainer {
       )
       this.switchWire2 = this.addWire(140, 36, 192, 55)
     } else {
-      this.topPorts = 2
-      this.bottomPorts = 1
-      this.width = 110
-      this.height = 200
+      if (!this.topPorts) this.topPorts = 2
+      if (!this.bottomPorts) this.bottomPorts = 1
+      if (!this.width) this.width = 110
+      if (!this.height) this.height = 200
       this.setAttribute('topports', this.topPorts)
       this.setAttribute('bottomports', this.bottomPorts)
       super.connectedCallback()
