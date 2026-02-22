@@ -1,6 +1,6 @@
-import { SimpleRelay } from '../relays/simple-relay.js'
+import { SimpleRelay } from './simple-relay.js'
 
-export class InverterSwitch extends SimpleRelay {
+export class InverterRelay extends SimpleRelay {
   get magnetisedOffsetX() {
     return this.isHorizontal ? -7 : 12
   }
@@ -15,4 +15,4 @@ export class InverterSwitch extends SimpleRelay {
   }
 }
 
-window.customElements.define('inverter-switch', InverterSwitch)
+window.customElements.define('inverter-relay', InverterRelay)

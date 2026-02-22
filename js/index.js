@@ -11,7 +11,7 @@ import { BinaryToDecimalBank } from './utilities/binary-to-decimal-bank.js'
 import { OnesComplement } from './utilities/ones-complement.js'
 
 import { SimpleRelay } from './relays/simple-relay.js'
-import { InverterSwitch } from './switches/inverter-switch.js'
+import { InverterRelay } from './relays/inverter-relay.js'
 import { SplitterRelay } from './relays/splitter-relay.js'
 import { DoubleThrowRelay } from './relays/double-throw-relay.js'
 

@@ -16,7 +16,7 @@ export class DoubleThrowRelay extends ComponentContainer {
       super.connectedCallback()
 
       if (this.svg) {
-        this.inverterSwitch = this.addComponent('inverter-switch', 34, 21, {
+        this.inverterSwitch = this.addComponent('inverter-relay', 34, 21, {
           scale: 0.75,
           orientation: 'horizontal'
         })
@@ -32,7 +32,7 @@ export class DoubleThrowRelay extends ComponentContainer {
       this.setAttribute('bottomports', this.bottomPorts)
       super.connectedCallback()
 
-      this.inverterSwitch = this.addComponent('inverter-switch', 21, 34, {
+      this.inverterSwitch = this.addComponent('inverter-relay', 21, 34, {
         scale: 0.75
       })
       this.inputWire = this.addWire(62, 8, 76, 26)
