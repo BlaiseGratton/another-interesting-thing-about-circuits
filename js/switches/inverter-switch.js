@@ -2,13 +2,16 @@ import { SimpleRelay } from '../relays/simple-relay.js'
 
 export class InverterSwitch extends SimpleRelay {
   get magnetisedOffsetX() {
-    return -7
+    return this.isHorizontal ? -7 : 12
+  }
+  get magnetisedOffsetY() {
+    return this.isHorizontal ? 12 : -3
   }
   get unmagnetisedPositionX() {
-    return 140
+    return this.isHorizontal ? 140 : 36
   }
   get unmagnetisedPositionY() {
-    return 48
+    return this.isHorizontal ? 36 : 140
   }
 }
 
