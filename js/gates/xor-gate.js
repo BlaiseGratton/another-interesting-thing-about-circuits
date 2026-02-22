@@ -8,72 +8,66 @@ export class XorGate extends ComponentContainer {
   }
 
   connectedCallback() {
-    this.width = 125
-    this.height = 75
-    this.setAttribute('leftPorts', this.leftPorts)
-    this.setAttribute('rightports', this.rightPorts)
-    super.connectedCallback()
+    this.setAttribute('portscaleinner', 0.25)
+    if (this.isHorizontal) {
+      this.width = 120
+      this.height = 75
+      this.setAttribute('leftports', this.leftPorts)
+      this.setAttribute('rightports', this.rightPorts)
+      super.connectedCallback()
 
-    if (this.svg) {
-      this.orGate = document.createElement('or-gate')
-      this.orGate.setAttribute('scale', 0.28)
-      this.orGate.x = 21
-      this.orGate.y = 1
-      this.appendChild(this.orGate)
+      if (this.svg) {
+        this.orGate = this.addComponent('or-gate', 14, 4, {
+          scale: 0.4,
+          orientation: 'horizontal',
+          portscaleouter: 0.4
+        })
+        this.nandGate = this.addComponent('nand-gate', 14, 40, {
+          scale: 0.4,
+          orientation: 'horizontal',
+          portscaleouter: 0.4
+        })
+        this.andGate = this.addComponent('and-gate', 58, 9, {
+          scale: 0.75,
+          orientation: 'horizontal',
+          portscaleouter: 0.4
+        })
+        this.wire1 = this.addWire(2, 24, 10, 14)
+        this.wire2 = this.addWire(2, 24, 10, 50)
+        this.wire3 = this.addWire(2, 50, 10, 24)
+        this.wire3 = this.addWire(2, 50, 10, 60)
+        this.wire4 = this.addWire(47, 19, 55, 28)
+        this.wire5 = this.addWire(47, 55, 55, 47)
+      }
+    } else {
+      this.width = 75
+      this.height = 120
+      this.topPorts = 2
+      this.bottomPorts = 1
+      this.setAttribute('topports', this.topPorts)
+      this.setAttribute('bottomports', this.bottomPorts)
+      super.connectedCallback()
 
-      this.inputWire1 = document.createElement('wire-element')
-      this.inputWire1.x1 = 8.5
-      this.inputWire1.y1 = 23.5
-      this.inputWire1.x2 = 12.5
-      this.inputWire1.y2 = 13
-      this.appendChild(this.inputWire1)
-
-      this.inputWire2 = document.createElement('wire-element')
-      this.inputWire2.x1 = 8.5
-      this.inputWire2.y1 = 26
-      this.inputWire2.x2 = 12.5
-      this.inputWire2.y2 = 50
-      this.appendChild(this.inputWire2)
-
-      this.inputWire3 = document.createElement('wire-element')
-      this.inputWire3.x1 = 8.5
-      this.inputWire3.y1 = 49
-      this.inputWire3.x2 = 12.5
-      this.inputWire3.y2 = 25
-      this.appendChild(this.inputWire3)
-
-      this.inputWire4 = document.createElement('wire-element')
-      this.inputWire4.x1 = 8.5
-      this.inputWire4.y1 = 51
-      this.inputWire4.x2 = 12.5
-      this.inputWire4.y2 = 61
-      this.appendChild(this.inputWire4)
-
-      this.nandGate = document.createElement('nand-gate')
-      this.nandGate.setAttribute('scale', 0.28)
-      this.nandGate.x = 21
-      this.nandGate.y = 38
-      this.appendChild(this.nandGate)
-
-      this.andGate = document.createElement('and-gate')
-      this.andGate.setAttribute('scale', 0.5)
-      this.andGate.x = 71.5
-      this.andGate.y = 6
-      this.appendChild(this.andGate)
-
-      this.orOutputWire = document.createElement('wire-element')
-      this.orOutputWire.x1 = 50
-      this.orOutputWire.y1 = 19
-      this.orOutputWire.x2 = 63
-      this.orOutputWire.y2 = 27
-      this.appendChild(this.orOutputWire)
-
-      this.nandOutputWire = document.createElement('wire-element')
-      this.nandOutputWire.x1 = 50
-      this.nandOutputWire.y1 = 55
-      this.nandOutputWire.x2 = 63
-      this.nandOutputWire.y2 = 48
-      this.appendChild(this.nandOutputWire)
+      if (this.svg) {
+        this.orGate = this.addComponent('or-gate', 4, 14, {
+          scale: 0.4,
+          portscaleouter: 0.4
+        })
+        this.nandGate = this.addComponent('nand-gate', 40, 14, {
+          scale: 0.4,
+          portscaleouter: 0.4
+        })
+        this.andGate = this.addComponent('and-gate', 9, 58, {
+          scale: 0.75,
+          portscaleouter: 0.4
+        })
+        this.wire1 = this.addWire(24, 2, 14, 10)
+        this.wire2 = this.addWire(24, 2, 50, 10)
+        this.wire3 = this.addWire(50, 2, 24, 10)
+        this.wire3 = this.addWire(50, 2, 60, 10)
+        this.wire4 = this.addWire(19, 47, 28, 55)
+        this.wire5 = this.addWire(55, 47, 47, 55)
+      }
     }
   }
 }
