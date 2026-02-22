@@ -11,7 +11,8 @@ export class EightBitAdder extends ComponentContainer {
 
   connectedCallback() {
     this.width = 400
-    this.height = 125
+    this.height = 75
+    this.setAttribute('portscaleinner', 0.5)
     this.setAttribute('leftports', this.leftPorts)
     this.setAttribute('topports', this.topPorts)
     this.setAttribute('rightports', this.rightPorts)
@@ -19,103 +20,87 @@ export class EightBitAdder extends ComponentContainer {
     super.connectedCallback()
 
     if (this.svg) {
-      const carryInWire1 = document.createElement('wire-element')
-      carryInWire1.x1 = this.width - 9
-      carryInWire1.y1 = this.height / 2
-      carryInWire1.x2 = this.width - 9
-      carryInWire1.y2 = (this.height / 2) * 0.44
-      this.appendChild(carryInWire1)
-
-      const carryInWire2 = document.createElement('wire-element')
-      carryInWire2.x1 = this.width - 9
-      carryInWire2.y1 = 27
-      carryInWire2.x2 = this.width - 25
-      carryInWire2.y2 = 27
-      this.appendChild(carryInWire2)
-
-      const carryOutWire1 = document.createElement('wire-element')
-      carryOutWire1.x1 = 28
-      carryOutWire1.y1 = this.height - 32
-      carryOutWire1.x2 = 8
-      carryOutWire1.y2 = this.height - 32
-      this.appendChild(carryOutWire1)
-
-      const carryOutWire2 = document.createElement('wire-element')
-      carryOutWire2.x1 = 8
-      carryOutWire2.y1 = this.height - 32
-      carryOutWire2.x2 = 8
-      carryOutWire2.y2 = this.height / 2
-      this.appendChild(carryOutWire2)
+      this.carryInWire1 = this.addWire(
+        this.width - 4,
+        this.height / 2,
+        this.width - 4,
+        this.height / 2 - 10 * this.scale
+      )
+      this.carryInWire2 = this.addWire(this.width - 4, 27, this.width - 25, 27)
+      this.carryOutWire1 = this.addWire(
+        27,
+        this.height - 10,
+        5,
+        this.height - 10
+      )
+      this.carryOutWire2 = this.addWire(5, this.height - 10, 5, this.height / 2)
+      const adderScale = 0.25
+      const margin = 10
+      const slotWidth = (this.width - margin * 2) / 8
+      const slotMargin = (slotWidth - 145 * adderScale) / 2
+      const topPortGap = this.width / (this.topPorts + 1)
+      const bottomPortGap = this.width / (this.bottomPorts + 1)
 
       for (let i = 0; i < 8; i++) {
         const adderName = 'adder' + (i + 1)
-        const adder = document.createElement('full-adder')
-        const adderScale = 0.25
-        adder.setAttribute('scale', adderScale)
-        const margin = 10
-        const slotWidth = (this.width - margin * 2) / 8
-        const slotMargin = (slotWidth - 145 * adderScale) / 2
-        adder.x = this.width - margin - slotWidth * (i + 1) + slotMargin
-        adder.y = 35
-        this.appendChild(adder)
-        this[adderName] = adder
+        this[adderName] = this.addComponent(
+          'full-adder',
+          this.width - margin - slotWidth * (i + 1) + slotMargin,
+          29,
+          {
+            scale: adderScale,
+            portscaleouter: 0.2
+          }
+        )
 
-        const topPortGap = this.width / (this.topPorts + 1)
-        const bottomPortGap = this.width / (this.bottomPorts + 1)
         const aInputWireName = `adder${i + 1}AInput`
-        const aInputWire = document.createElement('wire-element')
-        aInputWire.x1 = this.width - topPortGap * (i + 1)
-        aInputWire.y1 = 8
-        aInputWire.x2 = this.width - margin - slotWidth * i - 24
-        aInputWire.y2 = 27
-        this.appendChild(aInputWire)
-        this[aInputWireName] = aInputWire
+        this[aInputWireName] = this.addWire(
+          this.width - topPortGap * (i + 1),
+          4,
+          this.width - margin - slotWidth * i - 24,
+          27
+        )
 
         const bInputWireName = `adder${i + 1}BInput`
-        const bInputWire = document.createElement('wire-element')
-        bInputWire.x1 = this.width - topPortGap * (8 + 1 + i)
-        bInputWire.y1 = 8
-        bInputWire.x2 = this.width - margin - slotWidth * i - 33
-        bInputWire.y2 = 27
-        this.appendChild(bInputWire)
-        this[bInputWireName] = bInputWire
+        this[bInputWireName] = this.addWire(
+          this.width - topPortGap * (8 + 1 + i),
+          4,
+          this.width - margin - slotWidth * i - 33,
+          27
+        )
 
         const outputWireName = `adder${i + 1}Output`
-        const outputWire = document.createElement('wire-element')
-        outputWire.x1 = this.width - margin - slotWidth * i - 18
-        outputWire.y1 = 93
-        outputWire.x2 = this.width - bottomPortGap * (i + 1)
-        outputWire.y2 = 117
-        this.appendChild(outputWire)
-        this[outputWireName] = outputWire
+        this[outputWireName] = this.addWire(
+          this.width - margin - slotWidth * i - 18,
+          65,
+          this.width - bottomPortGap * (i + 1),
+          71
+        )
 
         if (i < 7) {
           const carryWire1Name = `adder${i + 1}CarryWire1`
-          const carryWire1 = document.createElement('wire-element')
-          carryWire1.x1 = this.width - margin - slotWidth * i - 29.5
-          carryWire1.y1 = 93
-          carryWire1.x2 = this.width - margin - slotWidth * (i + 1) + 1
-          carryWire1.y2 = 93
-          this.appendChild(carryWire1)
-          this[carryWire1Name] = carryWire1
+          this[carryWire1Name] = this.addWire(
+            this.width - margin - slotWidth * i - 29.5,
+            65,
+            this.width - margin - slotWidth * (i + 1) + 1,
+            65
+          )
 
           const carryWire2Name = `adder${i + 1}CarryWire2`
-          const carryWire2 = document.createElement('wire-element')
-          carryWire2.x1 = this.width - margin - slotWidth * (i + 1) + 1
-          carryWire2.y1 = 93
-          carryWire2.x2 = this.width - margin - slotWidth * (i + 1) + 1
-          carryWire2.y2 = 27
-          this.appendChild(carryWire2)
-          this[carryWire2Name] = carryWire2
+          this[carryWire2Name] = this.addWire(
+            this.width - margin - slotWidth * (i + 1) + 1,
+            65,
+            this.width - margin - slotWidth * (i + 1) + 1,
+            27
+          )
 
           const carryWire3Name = `adder${i + 1}CarryWire3`
-          const carryWire3 = document.createElement('wire-element')
-          carryWire3.x1 = this.width - margin - slotWidth * (i + 1) + 1
-          carryWire3.y1 = 27
-          carryWire3.x2 = this.width - margin - slotWidth * (i + 1) - 14
-          carryWire3.y2 = 27
-          this.appendChild(carryWire3)
-          this[carryWire3Name] = carryWire3
+          this[carryWire3Name] = this.addWire(
+            this.width - margin - slotWidth * (i + 1) + 1,
+            27,
+            this.width - margin - slotWidth * (i + 1) - 14,
+            27
+          )
         }
       }
     }
