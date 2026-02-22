@@ -20,6 +20,7 @@ export class ComponentContainer extends HTMLElement {
   /* prettier-ignore */ get svg() { return this._svg }
   /* prettier-ignore */ get shadow() { return this._shadow || this.parentElement.shadow }
   /* prettier-ignore */ get isRoot() { return !this.parentElement.classList.contains('component-container') }
+  /* prettier-ignore */ get isHorizontal() { return this.getAttribute('orientation') === 'horizontal' }
   get parentOffsetX() {
     if (this.isRoot) return 0
     return this.x * this.parentScale + this.parentElement.parentOffsetX
@@ -289,6 +290,19 @@ export class ComponentContainer extends HTMLElement {
     wire.y2 = y2
     this.appendChild(wire)
     return wire
+  }
+
+  addComponent(type, x, y, attributes) {
+    const component = document.createElement(type)
+    component.x = x
+    component.y = y
+    for (const [key, val] of Object.entries(attributes)) {
+      if (val !== null) {
+        component.setAttribute(key, val)
+      }
+    }
+    this.appendChild(component)
+    return component
   }
 }
 
