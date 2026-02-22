@@ -9,53 +9,49 @@ export class OrGate extends ComponentContainer {
 
   connectedCallback() {
     this.width = 75
-    this.height = 125
-    this.setAttribute('leftPorts', this.leftPorts)
-    this.setAttribute('rightports', this.rightPorts)
-    super.connectedCallback()
+    this.height = 75
+    if (this.isHorizontal) {
+      this.setAttribute('leftPorts', this.leftPorts)
+      this.setAttribute('rightports', this.rightPorts)
+      super.connectedCallback()
 
-    if (this.svg) {
-      this.switch1 = document.createElement('switch-element')
-      this.switch1.setAttribute('scale', 0.2)
-      this.switch1.x = 16
-      this.switch1.y = 25
-      this.appendChild(this.switch1)
+      if (this.svg) {
+        this.relay1 = this.addComponent('simple-relay', 16, 10, {
+          scale: 0.2,
+          orientation: 'horizontal'
+        })
+        this.powerSource1 = this.addWire(8, 8, 8, 17, 'power-source')
+        this.powerSource1.setAttribute('scale', 0.25)
+        this.relay2 = this.addComponent('simple-relay', 16, 36, {
+          scale: 0.2,
+          orientation: 'horizontal'
+        })
+        this.powerSource1 = this.addWire(8, 34, 8, 42, 'power-source')
+        this.powerSource1.setAttribute('scale', 0.25)
+        this.wire1 = this.addWire(65, 22, 67, 36)
+        this.wire2 = this.addWire(65, 47, 67, 38)
+      }
+    } else {
+      this.topPorts = 2
+      this.bottomPorts = 1
+      this.setAttribute('topports', this.topPorts)
+      this.setAttribute('bottomports', this.bottomPorts)
+      super.connectedCallback()
 
-      this.powerSource1 = document.createElement('power-source')
-      this.powerSource1.setAttribute('scale', 0.5)
-      this.powerSource1.x1 = 8
-      this.powerSource1.y1 = 20
-      this.powerSource1.x2 = 8
-      this.powerSource1.y2 = 33.5
-      this.appendChild(this.powerSource1)
-
-      this.wire1 = document.createElement('wire-element')
-      this.wire1.x1 = 64
-      this.wire1.y1 = 37
-      this.wire1.x2 = 66
-      this.wire1.y2 = 61
-      this.appendChild(this.wire1)
-
-      this.switch2 = document.createElement('switch-element')
-      this.switch2.setAttribute('scale', 0.2)
-      this.switch2.x = 16
-      this.switch2.y = 66.5
-      this.appendChild(this.switch2)
-
-      this.powerSource2 = document.createElement('power-source')
-      this.powerSource2.setAttribute('scale', 0.5)
-      this.powerSource2.x1 = 8
-      this.powerSource2.y1 = 58
-      this.powerSource2.x2 = 8
-      this.powerSource2.y2 = 75
-      this.appendChild(this.powerSource2)
-
-      this.wire2 = document.createElement('wire-element')
-      this.wire2.x1 = 64
-      this.wire2.y1 = 79
-      this.wire2.x2 = 66
-      this.wire2.y2 = 64
-      this.appendChild(this.wire2)
+      if (this.svg) {
+        this.relay1 = this.addComponent('simple-relay', 10, 16, {
+          scale: 0.2
+        })
+        this.powerSource1 = this.addWire(8, 8, 17, 8, 'power-source')
+        this.powerSource1.setAttribute('scale', 0.25)
+        this.relay2 = this.addComponent('simple-relay', 36, 16, {
+          scale: 0.2
+        })
+        this.powerSource1 = this.addWire(34, 8, 42, 8, 'power-source')
+        this.powerSource1.setAttribute('scale', 0.25)
+        this.wire1 = this.addWire(22, 65, 36, 67)
+        this.wire2 = this.addWire(47, 65, 38, 67)
+      }
     }
   }
 }
