@@ -9,37 +9,41 @@ export class NandGate extends ComponentContainer {
 
   connectedCallback() {
     this.width = 75
-    this.height = 125
-    this.setAttribute('leftPorts', this.leftPorts)
-    this.setAttribute('rightports', this.rightPorts)
-    super.connectedCallback()
+    this.height = 75
+    if (this.isHorizontal) {
+      this.setAttribute('leftPorts', this.leftPorts)
+      this.setAttribute('rightports', this.rightPorts)
+      super.connectedCallback()
 
-    if (this.svg) {
-      this.switch1 = document.createElement('double-throw-relay')
-      this.switch1.setAttribute('scale', 0.2)
-      this.switch1.x = 16
-      this.switch1.y = 29
-      this.appendChild(this.switch1)
+      if (this.svg) {
+        this.inverter1 = this.addComponent('double-throw-relay', 16, 12, {
+          scale: 0.2,
+          orientation: 'horizontal'
+        })
+        this.inverter2 = this.addComponent('double-throw-relay', 16, 38, {
+          scale: 0.2,
+          orientation: 'horizontal'
+        })
+        this.wire1 = this.addWire(64, 24, 66, 37)
+        this.wire2 = this.addWire(64, 50, 66, 39)
+      }
+    } else {
+      this.topPorts = 2
+      this.bottomPorts = 1
+      this.setAttribute('topports', this.topPorts)
+      this.setAttribute('bottomports', this.bottomPorts)
+      super.connectedCallback()
 
-      this.wire1 = document.createElement('wire-element')
-      this.wire1.x1 = 64
-      this.wire1.y1 = 41
-      this.wire1.x2 = 66
-      this.wire1.y2 = 61
-      this.appendChild(this.wire1)
-
-      this.switch2 = document.createElement('double-throw-relay')
-      this.switch2.setAttribute('scale', 0.2)
-      this.switch2.x = 16
-      this.switch2.y = 70.5
-      this.appendChild(this.switch2)
-
-      this.wire2 = document.createElement('wire-element')
-      this.wire2.x1 = 64
-      this.wire2.y1 = 83
-      this.wire2.x2 = 66
-      this.wire2.y2 = 64
-      this.appendChild(this.wire2)
+      if (this.svg) {
+        this.inverter1 = this.addComponent('double-throw-relay', 12, 16, {
+          scale: 0.2
+        })
+        this.inverter2 = this.addComponent('double-throw-relay', 38, 16, {
+          scale: 0.2
+        })
+        this.wire1 = this.addWire(24, 64, 37, 66)
+        this.wire2 = this.addWire(50, 64, 39, 66)
+      }
     }
   }
 }
