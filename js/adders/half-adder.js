@@ -8,66 +8,55 @@ export class HalfAdder extends ComponentContainer {
   }
 
   connectedCallback() {
-    this.width = 125
-    this.height = 125
-    this.setAttribute('leftports', this.leftPorts)
-    this.setAttribute('rightports', this.rightPorts)
-    super.connectedCallback()
+    this.setAttribute('portscaleinner', 0.2)
+    this.width = 100
+    this.height = 100
+    if (this.isHorizontal) {
+      this.setAttribute('leftports', this.leftPorts)
+      this.setAttribute('rightports', this.rightPorts)
+      super.connectedCallback()
 
-    if (this.svg) {
-      this.xorGate = document.createElement('xor-gate')
-      this.xorGate.setAttribute('scale', 0.65)
-      this.xorGate.x = 24
-      this.xorGate.y = 4
-      this.appendChild(this.xorGate)
+      if (this.svg) {
+        this.xorGate = this.addComponent('xor-gate', 10, 4, {
+          scale: 0.65,
+          orientation: 'horizontal',
+          portscaleouter: 0.2
+        })
+        this.andGate = this.addComponent('and-gate', 10, 58, {
+          scale: 0.5,
+          orientation: 'horizontal',
+          portscaleouter: 0.2
+        })
+        this.wire1 = this.addWire(2, 33, 8, 20)
+        this.wire2 = this.addWire(2, 33, 8, 71)
+        this.wire3 = this.addWire(2, 66, 8, 37)
+        this.wire4 = this.addWire(2, 66, 8, 83)
+        this.wire5 = this.addWire(90, 28, 98, 33)
+        this.wire6 = this.addWire(49, 77, 98, 67)
+      }
+    } else {
+      this.topPorts = 2
+      this.bottomPorts = 2
+      this.setAttribute('topports', this.topPorts)
+      this.setAttribute('bottomports', this.bottomPorts)
+      super.connectedCallback()
 
-      this.andGate = document.createElement('and-gate')
-      this.andGate.setAttribute('scale', 0.5)
-      this.andGate.x = 35
-      this.andGate.y = 56
-      this.appendChild(this.andGate)
-
-      this.inputWire1 = document.createElement('wire-element')
-      this.inputWire1.x1 = 8
-      this.inputWire1.y1 = 40.5
-      this.inputWire1.x2 = 16
-      this.inputWire1.y2 = 20
-      this.appendChild(this.inputWire1)
-
-      this.inputWire2 = document.createElement('wire-element')
-      this.inputWire2.x1 = 8
-      this.inputWire2.y1 = 42
-      this.inputWire2.x2 = 27
-      this.inputWire2.y2 = 76
-      this.appendChild(this.inputWire2)
-
-      this.inputWire3 = document.createElement('wire-element')
-      this.inputWire3.x1 = 8
-      this.inputWire3.y1 = 82
-      this.inputWire3.x2 = 16
-      this.inputWire3.y2 = 37
-      this.appendChild(this.inputWire3)
-
-      this.inputWire4 = document.createElement('wire-element')
-      this.inputWire4.x1 = 8
-      this.inputWire4.y1 = 84
-      this.inputWire4.x2 = 27
-      this.inputWire4.y2 = 98
-      this.appendChild(this.inputWire4)
-
-      this.sumOutWire = document.createElement('wire-element')
-      this.sumOutWire.x1 = 113
-      this.sumOutWire.y1 = 28
-      this.sumOutWire.x2 = 117
-      this.sumOutWire.y2 = 42
-      this.appendChild(this.sumOutWire)
-
-      this.carryOutWire = document.createElement('wire-element')
-      this.carryOutWire.x1 = 81
-      this.carryOutWire.y1 = 87
-      this.carryOutWire.x2 = 117
-      this.carryOutWire.y2 = 83
-      this.appendChild(this.carryOutWire)
+      if (this.svg) {
+        this.xorGate = this.addComponent('xor-gate', 48, 10, {
+          scale: 0.65,
+          portscaleouter: 0.2
+        })
+        this.andGate = this.addComponent('and-gate', 4, 10, {
+          scale: 0.5,
+          portscaleouter: 0.2
+        })
+        this.wire1 = this.addWire(33, 2, 17, 8)
+        this.wire2 = this.addWire(33, 2, 64, 8)
+        this.wire3 = this.addWire(66, 2, 29, 8)
+        this.wire4 = this.addWire(66, 2, 80, 8)
+        this.wire5 = this.addWire(23, 49, 33, 98)
+        this.wire6 = this.addWire(72, 90, 67, 98)
+      }
     }
   }
 }

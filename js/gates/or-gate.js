@@ -28,8 +28,8 @@ export class OrGate extends ComponentContainer {
         })
         this.powerSource2 = this.addWire(8, 34, 8, 43, 'power-source')
         this.powerSource2.setAttribute('scale', 0.25)
-        this.wire1 = this.addWire(65, 22, 67, 36)
-        this.wire2 = this.addWire(65, 47, 67, 38)
+        this.wire1 = this.addWire(64, 21, 67, 36.5)
+        this.wire2 = this.addWire(64, 47, 67, 38)
       }
     } else {
       this.topPorts = 2
@@ -49,8 +49,8 @@ export class OrGate extends ComponentContainer {
         })
         this.powerSource2 = this.addWire(34, 8, 43, 8, 'power-source')
         this.powerSource2.setAttribute('scale', 0.25)
-        this.wire1 = this.addWire(22, 65, 36, 67)
-        this.wire2 = this.addWire(47, 65, 38, 67)
+        this.wire1 = this.addWire(21, 64, 36.5, 67)
+        this.wire2 = this.addWire(47, 64, 38, 67)
       }
     }
   }
