@@ -24,3 +24,5 @@ import { XorGate } from './gates/xor-gate.js'
 import { HalfAdder } from './adders/half-adder.js'
 import { FullAdder } from './adders/full-adder.js'
 import { EightBitAdder } from './adders/eight-bit-adder.js'
+
+import { FlipFlop } from './feedback/flip-flop.js'
