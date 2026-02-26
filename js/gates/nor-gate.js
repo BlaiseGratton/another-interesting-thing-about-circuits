@@ -28,7 +28,7 @@ export class NorGate extends ComponentContainer {
         this.wire1 = this.addWire(8, 24, 8, 16)
         this.wire2 = this.addWire(64, 16, 64, 31)
         this.wire3 = this.addWire(64, 31, 8, 31)
-        this.wire4 = this.addWire(8, 31, 8, 42)
+        this.wire4 = this.addWire(8, 31, 8, 43)
         this.wire5 = this.addWire(64, 47, 67, 37)
       }
     } else {
@@ -49,7 +49,7 @@ export class NorGate extends ComponentContainer {
         this.wire1 = this.addWire(24, 8, 16, 8)
         this.wire2 = this.addWire(16, 64, 31, 64)
         this.wire3 = this.addWire(31, 64, 31, 8)
-        this.wire4 = this.addWire(31, 8, 42, 8)
+        this.wire4 = this.addWire(31, 8, 43, 8)
         this.wire5 = this.addWire(47, 64, 37, 67)
       }
     }

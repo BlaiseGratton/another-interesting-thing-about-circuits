@@ -26,3 +26,5 @@ import { FullAdder } from './adders/full-adder.js'
 import { EightBitAdder } from './adders/eight-bit-adder.js'
 
 import { FlipFlop } from './feedback/flip-flop.js'
+import { LevelTriggeredLatch } from './feedback/level-triggered-latch.js'
+import { LevelTriggeredLatchArray } from './feedback/level-triggered-latch-array.js'
