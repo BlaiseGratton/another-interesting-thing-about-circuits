@@ -33,12 +33,17 @@
         orientation="horizontal"
       ></level-triggered-latch>
 
-      <level-triggered-latch-array
-        x="170"
-        y="150"
-        bits="8"
-      ></level-triggered-latch-array>
+      <simple-switch x="50" y="15"></simple-switch>
+      <simple-switch
+        x="110"
+        y="15"
+        on="Addition"
+        off="Subtraction"
+        labelscale="0.75"
+        initial="on"
+      ></simple-switch>
 
+      <switch-bank x="170" y="166"></switch-bank>
       <ground-bank x="170" y="233"></ground-bank>
 
       <power-source x1="320" y1="10" x2="320" y2="20"></power-source>

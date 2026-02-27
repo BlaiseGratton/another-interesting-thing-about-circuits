@@ -292,7 +292,7 @@ export class ComponentContainer extends HTMLElement {
     return wire
   }
 
-  addComponent(type, x, y, attributes) {
+  addComponent(type, x, y, attributes = {}) {
     const component = document.createElement(type)
     component.x = x
     component.y = y
