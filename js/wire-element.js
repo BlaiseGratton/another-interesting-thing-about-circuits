@@ -2,13 +2,20 @@ import { createSVGElement } from './svg.js'
 import { ComponentBase } from './componentBase.js'
 
 export class Wire extends ComponentBase {
-  static observedAttributes = ['x1', 'y1', 'x2', 'y2', 'parentscale', 'voltage']
+  static observedAttributes = [
+    'x1',
+    'y1',
+    'x2',
+    'y2',
+    'parent-scale',
+    'voltage'
+  ]
 
   /* prettier-ignore */ get x1() { return parseFloat(this.getAttribute('x1')) }
   /* prettier-ignore */ get y1() { return parseFloat(this.getAttribute('y1')) }
   /* prettier-ignore */ get x2() { return parseFloat(this.getAttribute('x2')) }
   /* prettier-ignore */ get y2() { return parseFloat(this.getAttribute('y2')) }
-  /* prettier-ignore */ get parentScale() { return parseFloat(this.getAttribute('parentscale') || 1) }
+  /* prettier-ignore */ get parentScale() { return parseFloat(this.getAttribute('parent-scale') || 1) }
   /* prettier-ignore */ get scale() { return parseFloat(this.getAttribute('scale') || 1)  }
   /* prettier-ignore */ get parentOffsetX() { return this.parentElement.parentOffsetX }
   /* prettier-ignore */ get parentOffsetY() { return this.parentElement.parentOffsetY }
@@ -61,7 +68,7 @@ export class Wire extends ComponentBase {
     y1: (oldVal, newVal) => this.handleDraw('y1', newVal),
     x2: (oldVal, newVal) => this.handleDraw('x2', newVal),
     y2: (oldVal, newVal) => this.handleDraw('y2', newVal),
-    parentscale: () => this.drawAllPoints(),
+    'parent-scale': () => this.drawAllPoints(),
     voltage: (oldVal, newVal) => this.handleVoltageChange(oldVal, newVal)
   }
 

@@ -11,9 +11,9 @@ export class BinaryToDecimalBank extends ComponentContainer {
 
   connectedCallback() {
     this.height = 40
-    this.setAttribute('topPorts', this.topPorts)
-    this.setAttribute('bottomPorts', this.bottomPorts)
-    this.setAttribute('leftports', this.leftPorts)
+    this.setAttribute('top-ports', this.topPorts)
+    this.setAttribute('bottom-ports', this.bottomPorts)
+    this.setAttribute('left-ports', this.leftPorts)
     this.digitWires = []
     this.displayElements = []
     super.connectedCallback()

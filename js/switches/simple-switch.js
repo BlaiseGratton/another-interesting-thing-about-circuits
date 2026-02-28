@@ -22,8 +22,8 @@ export class SimpleSwitch extends ComponentContainer {
     this.height = 50
     this.width = 50
     this.bottomPorts = 1
-    this.setAttribute('bottomports', this.bottomPorts)
-    this.setAttribute('portscaleinner', 0.2)
+    this.setAttribute('bottom-ports', this.bottomPorts)
+    this.setAttribute('port-scale-inner', 0.2)
     super.connectedCallback()
 
     if (this.svg) {

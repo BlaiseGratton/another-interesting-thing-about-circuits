@@ -8,8 +8,8 @@ export class GroundBank extends ComponentContainer {
   connectedCallback() {
     this.width = this.getAttribute('width') || 400
     this.height = 35
-    this.topPorts = this.getAttribute('topports') || 8
-    this.setAttribute('topports', this.topPorts)
+    this.topPorts = this.getAttribute('top-ports') || 8
+    this.setAttribute('top-ports', this.topPorts)
     super.connectedCallback()
 
     if (this.svg) {

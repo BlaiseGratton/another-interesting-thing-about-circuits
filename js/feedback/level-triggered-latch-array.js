@@ -12,9 +12,9 @@ export class LevelTriggeredLatchArray extends ComponentContainer {
     this.width = bits * 50
     this.topPorts = bits
     this.bottomPorts = bits
-    this.setAttribute('topports', this.topPorts)
-    this.setAttribute('bottomports', this.bottomPorts)
-    this.setAttribute('leftports', this.leftPorts)
+    this.setAttribute('top-ports', this.topPorts)
+    this.setAttribute('bottom-ports', this.bottomPorts)
+    this.setAttribute('left-ports', this.leftPorts)
     super.connectedCallback()
 
     if (this.svg) {
@@ -26,7 +26,7 @@ export class LevelTriggeredLatchArray extends ComponentContainer {
           10 * this.scale,
           {
             scale: 0.37,
-            portscaleouter: 0.2
+            'port-scale-outer': 0.2
           }
         )
         this.addWire(

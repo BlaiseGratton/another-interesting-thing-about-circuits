@@ -12,8 +12,8 @@ export class NorGate extends ComponentContainer {
     this.height = 75
 
     if (this.isHorizontal) {
-      this.setAttribute('leftports', this.leftPorts)
-      this.setAttribute('rightports', this.rightPorts)
+      this.setAttribute('left-ports', this.leftPorts)
+      this.setAttribute('right-ports', this.rightPorts)
       super.connectedCallback()
 
       if (this.svg) {
@@ -34,8 +34,8 @@ export class NorGate extends ComponentContainer {
     } else {
       this.topPorts = 2
       this.bottomPorts = 1
-      this.setAttribute('topports', this.topPorts)
-      this.setAttribute('bottomports', this.bottomPorts)
+      this.setAttribute('top-ports', this.topPorts)
+      this.setAttribute('bottom-ports', this.bottomPorts)
 
       super.connectedCallback()
 

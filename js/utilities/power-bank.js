@@ -8,8 +8,8 @@ export class PowerBank extends ComponentContainer {
   connectedCallback() {
     this.width = this.getAttribute('width') || 211.5
     this.height = 35
-    this.bottomPorts = this.getAttribute('bottomports') || 8
-    this.setAttribute('bottomports', this.bottomPorts)
+    this.bottomPorts = this.getAttribute('bottom-ports') || 8
+    this.setAttribute('bottom-ports', this.bottomPorts)
     super.connectedCallback()
 
     if (this.svg) {

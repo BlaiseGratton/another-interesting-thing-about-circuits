@@ -11,15 +11,15 @@ export class AndGate extends ComponentContainer {
     if (this.isHorizontal) {
       this.width = 75
       this.height = 75
-      this.setAttribute('leftports', this.leftPorts)
-      this.setAttribute('rightports', this.rightPorts)
+      this.setAttribute('left-ports', this.leftPorts)
+      this.setAttribute('right-ports', this.rightPorts)
       super.connectedCallback()
 
       if (this.svg) {
         this.relay1 = this.addComponent('simple-relay', 16, 4, {
           scale: 0.2,
           orientation: 'horizontal',
-          portscaleouter: 0.2
+          'port-scale-outer': 0.2
         })
         this.powerSource = this.addWire(8, 8, 14, 11, 'power-source')
         this.powerSource.setAttribute('scale', 0.25)
@@ -27,7 +27,7 @@ export class AndGate extends ComponentContainer {
         this.relay2 = this.addComponent('simple-relay', 16, 45, {
           scale: 0.2,
           orientation: 'horizontal',
-          portscaleouter: 0.2
+          'port-scale-outer': 0.2
         })
 
         this.wire2 = this.addWire(58, 15, 58, 37)
@@ -41,21 +41,21 @@ export class AndGate extends ComponentContainer {
       this.height = 75
       this.topPorts = 2
       this.bottomPorts = 1
-      this.setAttribute('topports', this.topPorts)
-      this.setAttribute('bottomports', this.bottomPorts)
+      this.setAttribute('top-ports', this.topPorts)
+      this.setAttribute('bottom-ports', this.bottomPorts)
       super.connectedCallback()
 
       if (this.svg) {
         this.relay1 = this.addComponent('simple-relay', 4, 16, {
           scale: 0.2,
-          portscaleouter: 0.2
+          'port-scale-outer': 0.2
         })
         this.powerSource = this.addWire(8, 8, 11, 14, 'power-source')
         this.powerSource.setAttribute('scale', 0.25)
         this.wire1 = this.addWire(24, 8, 19, 14)
         this.relay2 = this.addComponent('simple-relay', 45, 16, {
           scale: 0.2,
-          portscaleouter: 0.2
+          'port-scale-outer': 0.2
         })
 
         this.wire2 = this.addWire(15, 58, 37, 58)

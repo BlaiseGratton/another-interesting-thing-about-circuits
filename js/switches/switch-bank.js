@@ -4,9 +4,9 @@ export class SwitchBank extends ComponentContainer {
   connectedCallback() {
     this.height = 50
     this.width = parseInt(this.getAttribute('width') || 400)
-    this.setAttribute('portscaleinner', 0.2)
+    this.setAttribute('port-scale-inner', 0.2)
     this.bottomPorts = parseInt(this.getAttribute('count') || 8)
-    this.setAttribute('bottomports', this.bottomPorts)
+    this.setAttribute('bottom-ports', this.bottomPorts)
     super.connectedCallback()
 
     if (this.svg) {

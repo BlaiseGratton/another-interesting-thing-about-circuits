@@ -12,11 +12,11 @@ export class EightBitAdder extends ComponentContainer {
   connectedCallback() {
     this.width = 400
     this.height = 75
-    this.setAttribute('portscaleinner', 0.5)
-    this.setAttribute('leftports', this.leftPorts)
-    this.setAttribute('topports', this.topPorts)
-    this.setAttribute('rightports', this.rightPorts)
-    this.setAttribute('bottomports', this.bottomPorts)
+    this.setAttribute('port-scale-inner', 0.5)
+    this.setAttribute('left-ports', this.leftPorts)
+    this.setAttribute('top-ports', this.topPorts)
+    this.setAttribute('right-ports', this.rightPorts)
+    this.setAttribute('bottom-ports', this.bottomPorts)
     super.connectedCallback()
 
     if (this.svg) {
@@ -49,7 +49,7 @@ export class EightBitAdder extends ComponentContainer {
           29,
           {
             scale: adderScale,
-            portscaleouter: 0.2
+            'port-scale-outer': 0.2
           }
         )
 

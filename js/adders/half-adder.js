@@ -8,24 +8,24 @@ export class HalfAdder extends ComponentContainer {
   }
 
   connectedCallback() {
-    this.setAttribute('portscaleinner', 0.2)
+    this.setAttribute('port-scale-inner', 0.2)
     this.width = 100
     this.height = 100
     if (this.isHorizontal) {
-      this.setAttribute('leftports', this.leftPorts)
-      this.setAttribute('rightports', this.rightPorts)
+      this.setAttribute('left-ports', this.leftPorts)
+      this.setAttribute('right-ports', this.rightPorts)
       super.connectedCallback()
 
       if (this.svg) {
         this.xorGate = this.addComponent('xor-gate', 10, 4, {
           scale: 0.65,
           orientation: 'horizontal',
-          portscaleouter: 0.2
+          'port-scale-outer': 0.2
         })
         this.andGate = this.addComponent('and-gate', 10, 58, {
           scale: 0.5,
           orientation: 'horizontal',
-          portscaleouter: 0.2
+          'port-scale-outer': 0.2
         })
         this.wire1 = this.addWire(2, 33, 8, 20)
         this.wire2 = this.addWire(2, 33, 8, 71)
@@ -37,18 +37,18 @@ export class HalfAdder extends ComponentContainer {
     } else {
       this.topPorts = 2
       this.bottomPorts = 2
-      this.setAttribute('topports', this.topPorts)
-      this.setAttribute('bottomports', this.bottomPorts)
+      this.setAttribute('top-ports', this.topPorts)
+      this.setAttribute('bottom-ports', this.bottomPorts)
       super.connectedCallback()
 
       if (this.svg) {
         this.xorGate = this.addComponent('xor-gate', 48, 10, {
           scale: 0.65,
-          portscaleouter: 0.2
+          'port-scale-outer': 0.2
         })
         this.andGate = this.addComponent('and-gate', 4, 10, {
           scale: 0.5,
-          portscaleouter: 0.2
+          'port-scale-outer': 0.2
         })
         this.wire1 = this.addWire(33, 2, 17, 8)
         this.wire2 = this.addWire(33, 2, 64, 8)

@@ -8,12 +8,12 @@ export class OnesComplement extends ComponentContainer {
   connectedCallback() {
     this.width = this.getAttribute('width') || 211.5
     this.height = 50
-    this.topPorts = this.getAttribute('topports') || 8
-    this.bottomPorts = this.getAttribute('bottomports') || 8
+    this.topPorts = this.getAttribute('top-ports') || 8
+    this.bottomPorts = this.getAttribute('bottom-ports') || 8
     this.leftPorts = 1
-    this.setAttribute('topports', this.topPorts)
-    this.setAttribute('bottomports', this.bottomPorts)
-    this.setAttribute('leftports', this.leftPorts)
+    this.setAttribute('top-ports', this.topPorts)
+    this.setAttribute('bottom-ports', this.bottomPorts)
+    this.setAttribute('left-ports', this.leftPorts)
     super.connectedCallback()
 
     if (this.svg) {
@@ -24,7 +24,7 @@ export class OnesComplement extends ComponentContainer {
 
         for (let i = 0; i < this.topPorts; i++) {
           const xorGate = document.createElement('xor-gate')
-          xorGate.setAttribute('portscaleouter', 0.2)
+          xorGate.setAttribute('port-scale-outer', 0.2)
           xorGate.setAttribute('scale', 0.25)
           xorGate.x = slot * i + 11 * this.scale
           xorGate.y = 10

@@ -15,7 +15,7 @@ export class SimpleRelay extends ComponentContainer {
   }
 
   get movementDelay() {
-    return parseInt(this.getAttribute('movementdelay')) || 50
+    return parseInt(this.getAttribute('movement-delay')) || 50
   }
 
   get isHorizontal() {
@@ -32,8 +32,8 @@ export class SimpleRelay extends ComponentContainer {
     if (this.isHorizontal) {
       if (!this.width) this.width = 200
       if (!this.height) this.height = 110
-      this.setAttribute('leftports', this.leftPorts)
-      this.setAttribute('rightports', this.rightPorts)
+      this.setAttribute('left-ports', this.leftPorts)
+      this.setAttribute('right-ports', this.rightPorts)
       super.connectedCallback()
       this.coil = this.addWire(105, 48, 105.2, 105, 'wire-coil')
       this.coilWire = this.addWire(8, 73, 105.2, 105)
@@ -51,8 +51,8 @@ export class SimpleRelay extends ComponentContainer {
       if (!this.bottomPorts) this.bottomPorts = 1
       if (!this.width) this.width = 110
       if (!this.height) this.height = 200
-      this.setAttribute('topports', this.topPorts)
-      this.setAttribute('bottomports', this.bottomPorts)
+      this.setAttribute('top-ports', this.topPorts)
+      this.setAttribute('bottom-ports', this.bottomPorts)
       super.connectedCallback()
       this.coil = this.addWire(48, 105, 105, 105.2, 'wire-coil')
       this.coilWire = this.addWire(73, 8, 105, 105.2)

@@ -8,25 +8,25 @@ export class LevelTriggeredLatch extends ComponentContainer {
   }
 
   connectedCallback() {
-    this.setAttribute('portscaleinner', 0.2)
+    this.setAttribute('port-scale-inner', 0.2)
     this.width = 100
     this.height = 150
-    this.setAttribute('topports', this.topPorts)
-    this.setAttribute('bottomports', this.bottomPorts)
+    this.setAttribute('top-ports', this.topPorts)
+    this.setAttribute('bottom-ports', this.bottomPorts)
     super.connectedCallback()
 
     if (this.svg) {
       this.inverter = this.addComponent('double-throw-relay', 40.5, 10, {
         scale: 0.15,
-        portscaleouter: 0.2
+        'port-scale-outer': 0.2
       })
       this.andGate1 = this.addComponent('and-gate', 10, 24, {
         scale: 0.35,
-        portscaleouter: 0.2
+        'port-scale-outer': 0.2
       })
       this.andGate1 = this.addComponent('and-gate', 64, 24, {
         scale: 0.35,
-        portscaleouter: 0.2
+        'port-scale-outer': 0.2
       })
       this.flipFlop = this.addComponent('flip-flop', 8, 70, {
         scale: 0.85

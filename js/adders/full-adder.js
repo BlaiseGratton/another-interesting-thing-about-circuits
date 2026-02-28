@@ -10,23 +10,23 @@ export class FullAdder extends ComponentContainer {
   connectedCallback() {
     this.width = 145
     this.height = 138
-    this.setAttribute('topports', this.topPorts)
-    this.setAttribute('bottomports', this.bottomPorts)
-    this.setAttribute('portscaleinner', 0.2)
+    this.setAttribute('top-ports', this.topPorts)
+    this.setAttribute('bottom-ports', this.bottomPorts)
+    this.setAttribute('port-scale-inner', 0.2)
     super.connectedCallback()
 
     if (this.svg) {
       this.halfAdder1 = this.addComponent('half-adder', 3, 10, {
         scale: 0.65,
-        portscaleouter: 0.2
+        'port-scale-outer': 0.2
       })
       this.halfAdder2 = this.addComponent('half-adder', 77, 10, {
         scale: 0.65,
-        portscaleouter: 0.2
+        'port-scale-outer': 0.2
       })
       this.orGate = this.addComponent('or-gate', 26, 90, {
         scale: 0.6,
-        portscaleouter: 0.2
+        'port-scale-outer': 0.2
       })
       this.wire1 = this.addWire(36, 2, 25, 8)
       this.wire2 = this.addWire(72.5, 2, 46.5, 8)

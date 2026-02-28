@@ -8,13 +8,13 @@ export class FlipFlop extends ComponentContainer {
   }
 
   connectedCallback() {
-    this.setAttribute('portscaleinner', 0.2)
+    this.setAttribute('port-scale-inner', 0.2)
     this.width = 75
     this.height = 100
 
     if (this.isHorizontal) {
-      this.setAttribute('leftports', this.leftPorts)
-      this.setAttribute('rightports', this.rightPorts)
+      this.setAttribute('left-ports', this.leftPorts)
+      this.setAttribute('right-ports', this.rightPorts)
       super.connectedCallback()
 
       if (this.svg) {
@@ -51,8 +51,8 @@ export class FlipFlop extends ComponentContainer {
       this.height = 75
       this.topPorts = 2
       this.bottomPorts = 2
-      this.setAttribute('topports', this.topPorts)
-      this.setAttribute('bottomports', this.bottomPorts)
+      this.setAttribute('top-ports', this.topPorts)
+      this.setAttribute('bottom-ports', this.bottomPorts)
       super.connectedCallback()
 
       if (this.svg) {
