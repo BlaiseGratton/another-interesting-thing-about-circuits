@@ -21,9 +21,9 @@
       If the output light is on during subtraction, there is a negative number
       (-256 plus the output number)
     </p>
-    <component-container height="1000" width="1000" scale="2">
+    <component-container height="550" width="650" scale="2">
       <!-- A input -->
-      <power-bank x="28" y="18"></power-bank>
+      <switch-bank x="28" y="28" scale=".528"></switch-bank>
       <binary-to-decimal-bank
         x="28"
         y="70"
@@ -40,7 +40,7 @@
       <!-- end A input -->
 
       <!-- B input -->
-      <power-bank x="240" y="18"></power-bank>
+      <switch-bank x="240" y="28" scale=".528"></switch-bank>
       <binary-to-decimal-bank
         x="240"
         y="70"
@@ -65,26 +65,26 @@
       <!-- end adder -->
 
       <!-- addition/subtraction controls -->
-      <power-source x1="500" y1="20" x2="500" y2="142"></power-source>
+      <simple-switch
+        x="470"
+        y="65"
+        on="Subtraction"
+        off="Addition"
+        label-scale="0.75"
+      ></simple-switch>
       <!-- inverter -->
       <wire-element x1="232" y1="150" x2="232" y2="123"></wire-element>
-      <wire-element x1="232" y1="123" x2="480" y2="123"></wire-element>
-      <wire-element x1="480" y1="123" x2="490" y2="140"></wire-element>
+      <wire-element x1="232" y1="123" x2="495" y2="123"></wire-element>
       <!-- carry in -->
-      <wire-element x1="489" y1="141" x2="459" y2="285"></wire-element>
+      <wire-element x1="495" y1="123" x2="459" y2="285"></wire-element>
       <!-- under/overflow indicator -->
-      <wire-element x1="490" y1="142" x2="458" y2="236"></wire-element>
+      <wire-element x1="495" y1="123" x2="458" y2="236"></wire-element>
       <wire-element x1="458" y1="236" x2="48" y2="236"></wire-element>
-      <wire-element x1="48" y1="236" x2="17" y2="450"></wire-element>
-      <wire-element x1="42" y1="285" x2="30" y2="450"></wire-element>
-      <xor-gate x="5" y="458" scale=".5"></xor-gate>
-      <bulb-element x1="24" y1="527" x2="120" y2="530"></bulb-element>
-      <ground-connection
-        x1="120"
-        y1="530"
-        x2="120"
-        y2="550"
-      ></ground-connection>
+      <wire-element x1="48" y1="236" x2="12" y2="320"></wire-element>
+      <wire-element x1="42" y1="285" x2="20" y2="320"></wire-element>
+      <xor-gate x="5" y="328" scale=".3"></xor-gate>
+      <bulb-element x1="16" y1="372" x2="35" y2="430"></bulb-element>
+      <ground-connection x1="35" y1="430" x2="35" y2="440"></ground-connection>
       <!-- end addition/subtraction controls -->
     </component-container>
   </body>

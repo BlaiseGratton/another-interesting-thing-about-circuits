@@ -15,7 +15,7 @@ export class SimpleSwitch extends ComponentContainer {
     this.offLabel = this.getAttribute('off') || 'Off'
     this.onLabel = this.getAttribute('on') || 'On'
     this.on = this.getAttribute('initial') === 'on'
-    this.labelScale = parseFloat(this.getAttribute('labelscale') || 1)
+    this.labelScale = parseFloat(this.getAttribute('label-scale') || 1)
   }
 
   connectedCallback() {
@@ -103,23 +103,23 @@ export class SimpleSwitch extends ComponentContainer {
 
   handleScaleChange(oldVal, newVal) {
     super.handleScaleChange(oldVal, newVal)
-    this.offRect.setAttribute('x', 2 * this.scale * this.parentScale)
-    this.offRect.setAttribute('y', 2 * this.scale * this.parentScale)
-    this.offRect.setAttribute('width', 46 * this.scale * this.parentScale)
-    this.offRect.setAttribute('height', 12 * this.scale * this.parentScale)
-    this.onRect.setAttribute('x', 2 * this.scale * this.parentScale)
-    this.onRect.setAttribute('y', 16 * this.scale * this.parentScale)
-    this.onRect.setAttribute('width', 46 * this.scale * this.parentScale)
-    this.onRect.setAttribute('height', 12 * this.scale * this.parentScale)
-    this.offLabelText.setAttribute('x', 5 * this.scale * this.parentScale)
-    this.offLabelText.setAttribute('y', 11 * this.scale * this.parentScale)
-    this.offLabelText.setAttribute(
+    this.offRect?.setAttribute('x', 2 * this.scale * this.parentScale)
+    this.offRect?.setAttribute('y', 2 * this.scale * this.parentScale)
+    this.offRect?.setAttribute('width', 46 * this.scale * this.parentScale)
+    this.offRect?.setAttribute('height', 12 * this.scale * this.parentScale)
+    this.onRect?.setAttribute('x', 2 * this.scale * this.parentScale)
+    this.onRect?.setAttribute('y', 16 * this.scale * this.parentScale)
+    this.onRect?.setAttribute('width', 46 * this.scale * this.parentScale)
+    this.onRect?.setAttribute('height', 12 * this.scale * this.parentScale)
+    this.offLabelText?.setAttribute('x', 5 * this.scale * this.parentScale)
+    this.offLabelText?.setAttribute('y', 11 * this.scale * this.parentScale)
+    this.offLabelText?.setAttribute(
       'style',
       `cursor: pointer; font-family: sans-serif; font-size: ${10 * this.scale * this.parentScale * this.labelScale}`
     )
-    this.onLabelText.setAttribute('x', 5 * this.scale * this.parentScale)
-    this.onLabelText.setAttribute('y', 25 * this.scale * this.parentScale)
-    this.onLabelText.setAttribute(
+    this.onLabelText?.setAttribute('x', 5 * this.scale * this.parentScale)
+    this.onLabelText?.setAttribute('y', 25 * this.scale * this.parentScale)
+    this.onLabelText?.setAttribute(
       'style',
       `cursor: pointer; font-family: sans-serif; font-size: ${10 * this.scale * this.parentScale * this.labelScale}`
     )

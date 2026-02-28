@@ -14,8 +14,8 @@ export class SwitchBank extends ComponentContainer {
       for (let i = 0; i < this.bottomPorts; i++) {
         this[`switch${i}`] = this.addComponent(
           'simple-switch',
-          this.width - slotWidth * (i + 1) - 18.5 * this.scale,
-          2 * this.scale,
+          this.width - slotWidth * (i + 1) - 18.5,
+          2,
           { scale: 0.75 }
         )
       }
