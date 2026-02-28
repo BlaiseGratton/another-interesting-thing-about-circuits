@@ -9,6 +9,8 @@ import { PowerBank } from './utilities/power-bank.js'
 import { GroundBank } from './utilities/ground-bank.js'
 import { BinaryToDecimalBank } from './utilities/binary-to-decimal-bank.js'
 import { OnesComplement } from './utilities/ones-complement.js'
+import { TwoToOneSelector } from './utilities/two-to-one-selector.js'
+import { TwoToOneSelectorBank } from './utilities/two-to-one-selector-bank.js'
 
 import { SimpleSwitch } from './switches/simple-switch.js'
 import { SwitchBank } from './switches/switch-bank.js'
