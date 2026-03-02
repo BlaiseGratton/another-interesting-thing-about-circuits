@@ -22,8 +22,8 @@ export class LevelTriggeredLatchArray extends ComponentContainer {
       for (let i = 0; i < bits; i++) {
         this[`flipFlop${i}`] = this.addComponent(
           'level-triggered-latch',
-          this.width - slotWidth * (i + 1) - 18 * this.scale,
-          10 * this.scale,
+          this.width - slotWidth * (i + 1) - 18,
+          10,
           {
             scale: 0.37,
             'port-scale-outer': 0.2
@@ -31,31 +31,26 @@ export class LevelTriggeredLatchArray extends ComponentContainer {
         )
         this.addWire(
           this.width - slotWidth * (i + 1),
-          8 * this.scale,
+          8,
           this.width - slotWidth * (i + 1) + 6,
-          8 * this.scale
+          8
         )
         this.addWire(
-          this.width - slotWidth * (i + 1) - 6 * this.scale,
-          8 * this.scale,
-          this.width - slotWidth * (i + 1) - 20 * this.scale,
-          4 * this.scale
+          this.width - slotWidth * (i + 1) - 6,
+          8,
+          this.width - slotWidth * (i + 1) - 20,
+          4
         )
         if (i < bits - 1) {
           this.addWire(
-            this.width - slotWidth * (i + 1) - 20 * this.scale,
-            4 * this.scale,
-            this.width - slotWidth - slotWidth * (i + 1) - 20 * this.scale,
-            4 * this.scale
+            this.width - slotWidth * (i + 1) - 20,
+            4,
+            this.width - slotWidth - slotWidth * (i + 1) - 20,
+            4
           )
         }
       }
-      this.addWire(
-        8 * this.scale,
-        this.height / 2,
-        this.width - slotWidth * bits - 20 * this.scale,
-        4 * this.scale
-      )
+      this.addWire(8, this.height / 2, this.width - slotWidth * bits - 20, 4)
     }
   }
 }

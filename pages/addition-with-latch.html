@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Another Interesting Thing About Circuits</title>
+    <script src="/js/index.js" type="module"></script>
+  </head>
+  <body>
+    <a href="/">Home</a>
+    <component-container height="500" width="800" scale="2">
+      <switch-bank
+        x="5"
+        y="35"
+        scale="0.53"
+        port-scale-outer="21.5"
+      ></switch-bank>
+      <simple-switch
+        x="200"
+        y="1"
+        scale="0.5"
+        off="Bank A"
+        on="Bank B"
+      ></simple-switch>
+      <switch-bank x="220" y="35" scale="0.53"></switch-bank>
+      <simple-switch x="425" y="0" scale="0.5" on="Write"></simple-switch>
+
+      <level-triggered-latch-array
+        x="448"
+        y="22"
+        scale="0.53"
+        offset-bottom="-40"
+      ></level-triggered-latch-array>
+
+      <two-to-one-selector-bank x="220" y="78"></two-to-one-selector-bank>
+
+      <binary-to-decimal-bank
+        x="5"
+        y="244"
+        width="212"
+        offset-bottom="30"
+      ></binary-to-decimal-bank>
+      <binary-to-decimal-bank
+        x="253"
+        y="244"
+        width="212"
+        offset-bottom="-30"
+      ></binary-to-decimal-bank>
+
+      <eight-bit-adder x="35" y="300"></eight-bit-adder>
+
+      <binary-to-decimal-bank
+        x="35"
+        y="392"
+        width="400"
+      ></binary-to-decimal-bank>
+    </component-container>
+  </body>
+</html>
