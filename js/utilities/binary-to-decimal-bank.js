@@ -86,16 +86,18 @@ export class BinaryToDecimalBank extends ComponentContainer {
       el.setAttribute('y', el.wire.y1 * this.parentScale)
     })
 
-    this.totalDisplay.style.fontSize = `${14 * this.parentScale}px`
+    if (this.displayBox) {
+      this.totalDisplay.style.fontSize = `${14 * this.parentScale}px`
 
-    const cx = (this.width / 2) * this.parentScale
-    const cy = (this.height / 2) * this.parentScale
-    this.displayBox.setAttribute('x', cx / 2)
-    this.displayBox.setAttribute('y', cy / 2)
-    this.displayBox.setAttribute('width', cx)
-    this.displayBox.setAttribute('height', cy)
-    this.totalDisplay.setAttribute('x', cx - 10 * this.parentScale)
-    this.totalDisplay.setAttribute('y', cy + 4 * this.parentScale)
+      const cx = (this.width / 2) * this.parentScale
+      const cy = (this.height / 2) * this.parentScale
+      this.displayBox.setAttribute('x', cx / 2)
+      this.displayBox.setAttribute('y', cy / 2)
+      this.displayBox.setAttribute('width', cx)
+      this.displayBox.setAttribute('height', cy)
+      this.totalDisplay.setAttribute('x', cx - 10 * this.parentScale)
+      this.totalDisplay.setAttribute('y', cy + 4 * this.parentScale)
+    }
   }
 
   handleVoltageChange() {

@@ -79,7 +79,7 @@ export class SimpleRelay extends ComponentContainer {
         this.switchWire.x2 = this.unmagnetisedPositionX + this.magnetisedOffsetX
         this.switchWire.y2 = this.unmagnetisedPositionY + this.magnetisedOffsetY
         this.pendingVoltageGain = false
-      }, 100)
+      }, this.movementDelay)
     }
     this.pendingVoltageGain = true
   }

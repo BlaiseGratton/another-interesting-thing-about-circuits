@@ -81,6 +81,7 @@ export class ComponentContainer extends HTMLElement {
     Array.from(this.children).forEach((child) => {
       if (child.connectedCallback) {
         child.connectedCallback()
+        this.handleScaleChange(1, this.scale)
       }
     })
   }
