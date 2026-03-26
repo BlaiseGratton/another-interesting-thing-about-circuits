@@ -5,6 +5,7 @@ export class DoubleThrowRelay extends ComponentContainer {
     super()
     this.leftPorts = 1
     this.rightPorts = 1
+    this.hasMovement = true
   }
 
   connectedCallback() {

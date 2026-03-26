@@ -21,13 +21,32 @@
     />
 
     <component-container height="1250" width="1000">
-      <simple-switch x="225" y="47" on="Write"></simple-switch>
+      <!-- <simple-switch x="225" y="47" on="4"></simple-switch> -->
+      <!-- <simple-switch x="280" y="47" on="2"></simple-switch> -->
+      <!-- <simple-switch x="335" y="47" on="1"></simple-switch> -->
+      <power-source x1="20" y1="20" x2="30" y2="30"></power-source>
+      <wire-element
+        x1="30"
+        y1="30"
+        x2="86"
+        y2="72"
+        class="moveable"
+      ></wire-element>
+      <wire-element
+        x1="100"
+        y1="68"
+        x2="122"
+        y2="72"
+        class="moveable"
+      ></wire-element>
+      <!-- <simple-relay x="50" y="80"></simple-relay> -->
 
-      <simple-switch x="475" y="210" on="Data"></simple-switch>
-      <wire-element x1="500" y1="268" x2="458" y2="269"></wire-element>
+      <simple-switch x="75" y="10" on="Data"></simple-switch>
+
+      <ground-bank x="425" y="300"></ground-bank>
+      <!-- <wire-element x1="500" y1="268" x2="458" y2="269"></wire-element> -->
 
       <switch-bank x="10" y="10" scale=".5"></switch-bank>
-      <eight-by-one-array x="50" y="120"></eight-by-one-array>
 
       <!-- <wire-element x1="143" y1="44" x2="5" y2="115"></wire-element>
       <wire-element x1="5" y1="115" x2="5" y2="190"></wire-element>
@@ -60,10 +79,10 @@
       <eight-to-one-selector x="50" y="324"></eight-to-one-selector> -->
 
       <ground-connection
-        x1="550"
-        y1="434"
-        x2="550"
-        y2="475"
+        x1="105"
+        y1="288"
+        x2="110"
+        y2="350"
       ></ground-connection>
     </component-container>
   </body>

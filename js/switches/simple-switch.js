@@ -12,13 +12,14 @@ export class SimpleSwitch extends ComponentContainer {
 
   constructor() {
     super()
-    this.offLabel = this.getAttribute('off') || 'Off'
-    this.onLabel = this.getAttribute('on') || 'On'
-    this.on = this.getAttribute('initial') === 'on'
+    this.hasMovement = true
     this.labelScale = parseFloat(this.getAttribute('label-scale') || 1)
   }
 
   connectedCallback() {
+    this.offLabel = this.getAttribute('off') || 'Off'
+    this.onLabel = this.getAttribute('on') || 'On'
+    this.on = this.getAttribute('initial') === 'on'
     this.height = 50
     this.width = 50
     this.bottomPorts = 1

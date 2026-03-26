@@ -7,6 +7,7 @@ export class ComponentGraph {
     this.sources = new Set()
     this.sinks = new Set()
     this.debouncedDetermineFlow = debounce(this._determineFlow, 40)
+    this.initialized = false
   }
 
   get allElements() {
@@ -24,6 +25,7 @@ export class ComponentGraph {
   }
 
   determineFlow() {
+    if (!this.initialized) return
     this.debouncedDetermineFlow()
   }
 

@@ -4,7 +4,7 @@ import { Wire } from './wire-element.js'
 export class PowerSource extends Wire {
   constructor() {
     super()
-    this.end1.remove()
+    this.end1?.remove()
     this.end1 = undefined
     this.line1 = createSVGElement('line')
     this.line2 = createSVGElement('line')

@@ -65,6 +65,9 @@ export class ComponentContainer extends HTMLElement {
       div.appendChild(this.svg)
       shadow.appendChild(div)
       this._shadow = shadow
+      setTimeout(() => {
+        this.initialize()
+      }, 0)
     } else {
       this.parentElement.svg.appendChild(this.svg)
     }
@@ -168,8 +171,8 @@ export class ComponentContainer extends HTMLElement {
         this.appendChild(innerWire)
 
         outerWire.addWireConnection(innerWire, true)
-        outerWire.end2.remove()
-        innerWire.end1.remove()
+        outerWire.end2?.remove()
+        innerWire.end1?.remove()
       }
       if (side === 'right') {
         const offsetRight = parseFloat(this.getAttribute('offset-right') || 0)
@@ -194,8 +197,8 @@ export class ComponentContainer extends HTMLElement {
         this.appendChild(innerWire)
 
         outerWire.addWireConnection(innerWire, true)
-        outerWire.end2.remove()
-        innerWire.end1.remove()
+        outerWire.end2?.remove()
+        innerWire.end1?.remove()
       }
       if (side === 'top') {
         const offsetTop = parseFloat(this.getAttribute('offset-top') || 0)
@@ -217,8 +220,8 @@ export class ComponentContainer extends HTMLElement {
         this.appendChild(innerWire)
 
         outerWire.addWireConnection(innerWire, true)
-        outerWire.end2.remove()
-        innerWire.end1.remove()
+        outerWire.end2?.remove()
+        innerWire.end1?.remove()
       }
       if (side === 'bottom') {
         const offsetBottom = parseFloat(this.getAttribute('offset-bottom') || 0)
@@ -243,13 +246,41 @@ export class ComponentContainer extends HTMLElement {
         this.appendChild(innerWire)
 
         outerWire.addWireConnection(innerWire, true)
-        outerWire.end2.remove()
-        innerWire.end1.remove()
+        outerWire.end2?.remove()
+        innerWire.end1?.remove()
       }
     }
   }
 
+  initialize() {
+    this.initialized = true
+    this.svg.querySelectorAll('&> .wire-end').forEach((wireEnd) => {
+      const wireElement = wireEnd.component
+      const { end1, end2 } = wireElement
+      const otherEnd = end1 === wireEnd ? end2 : end1
+      wireElement.handleComponentMoved(wireEnd, otherEnd)
+    })
+
+    this.querySelectorAll('&> .component-container').forEach((container) => {
+      if (!container.initialized) {
+        container.initialize()
+      }
+    })
+
+    if (!this.isRoot && !this.hasMovement) {
+      this.svg.querySelectorAll('&> .wire-end').forEach((wireEnd) => {
+        wireEnd.remove()
+      })
+    }
+
+    if (this.isRoot) {
+      this.graph.initialized = true
+      this.graph.determineFlow()
+    }
+  }
+
   getTouchingWireEnds(movedEnd, otherEnd) {
+    if (!this.initialized) return []
     if (!otherEnd) {
       otherEnd = movedEnd
     } else if (!otherEnd.getAttribute('cx')) {
@@ -287,12 +318,13 @@ export class ComponentContainer extends HTMLElement {
       .filter(Boolean)
   }
 
-  addWire(x1, y1, x2, y2, type) {
-    const wire = document.createElement(type || 'wire-element')
+  addWire(x1, y1, x2, y2, type = 'wire-element', classList = []) {
+    const wire = document.createElement(type)
     wire.x1 = x1
     wire.y1 = y1
     wire.x2 = x2
     wire.y2 = y2
+    classList.forEach((c) => wire.classList.add(c))
     this.appendChild(wire)
     return wire
   }

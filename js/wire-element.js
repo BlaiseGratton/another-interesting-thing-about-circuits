@@ -1,16 +1,11 @@
 import { createSVGElement } from './svg.js'
-import { ComponentBase } from './componentBase.js'
 
-export class Wire extends ComponentBase {
-  static observedAttributes = [
-    'x1',
-    'y1',
-    'x2',
-    'y2',
-    'parent-scale',
-    'voltage'
-  ]
+const observedAttributes = ['x1', 'y1', 'x2', 'y2', 'parent-scale', 'voltage']
 
+export class Wire extends HTMLElement {
+  static observedAttributes = observedAttributes
+
+  /* prettier-ignore */ get svg() { return this.parentElement && this.parentElement.svg }
   /* prettier-ignore */ get x1() { return parseFloat(this.getAttribute('x1')) }
   /* prettier-ignore */ get y1() { return parseFloat(this.getAttribute('y1')) }
   /* prettier-ignore */ get x2() { return parseFloat(this.getAttribute('x2')) }
@@ -36,12 +31,42 @@ export class Wire extends ComponentBase {
     this.end2.component = this
     this.connectedWires = new Set()
     this.permanentConnections = new Set()
-    this.endRadius = 1
+    this.endRadius = 0.75
     this.color = 'black'
   }
 
+  attributeChangedCallback(name, oldVal, newVal) {
+    if (!this.svg) return
+    if (oldVal !== newVal) {
+      switch (name) {
+        case 'x1':
+          this.handleDraw('x1', newVal)
+          break
+        case 'y1':
+          this.handleDraw('y1', newVal)
+          break
+        case 'x2':
+          this.handleDraw('x2', newVal)
+          break
+        case 'y2':
+          this.handleDraw('y2', newVal)
+          break
+        case 'parent-scale':
+          this.drawAllPoints()
+          break
+        case 'voltage':
+          this.handleVoltageChange(oldVal, newVal)
+          break
+        default:
+          return null
+      }
+    }
+  }
+
   connectedCallback() {
-    super.connectedCallback()
+    if (this.svg) {
+      this.parentElement.componentGraph.registerElement(this)
+    }
     if (this.svg) {
       this.svg.appendChild(this.line)
       if (this.end1) {
@@ -61,15 +86,6 @@ export class Wire extends ComponentBase {
       this.line.onmouseenter = () => this.changeColor('orange')
       this.line.onmouseleave = () => this.changeColor(this.color)
     }
-  }
-
-  attributeHandlers = {
-    x1: (oldVal, newVal) => this.handleDraw('x1', newVal),
-    y1: (oldVal, newVal) => this.handleDraw('y1', newVal),
-    x2: (oldVal, newVal) => this.handleDraw('x2', newVal),
-    y2: (oldVal, newVal) => this.handleDraw('y2', newVal),
-    'parent-scale': () => this.drawAllPoints(),
-    voltage: (oldVal, newVal) => this.handleVoltageChange(oldVal, newVal)
   }
 
   handleVoltageChange(oldVal, newVal) {
@@ -96,6 +112,8 @@ export class Wire extends ComponentBase {
         this.end1.setAttribute('cy', this.y1 * scale)
         this.end1.setAttribute('r', this.endRadius * scale)
         this.end1.setAttribute('stroke-width', this.endRadius * scale)
+        this.end1.setAttribute('stroke', this.color)
+        this.end1.setAttribute('fill', this.color)
         this.handleComponentMoved(this.end1, this.end2)
       }
       if (attribute[1] === '2' && this.end2) {
@@ -103,6 +121,8 @@ export class Wire extends ComponentBase {
         this.end2.setAttribute('cy', this.y2 * scale)
         this.end2.setAttribute('r', this.endRadius * scale)
         this.end2.setAttribute('stroke-width', this.endRadius * scale)
+        this.end2.setAttribute('stroke', this.color)
+        this.end2.setAttribute('fill', this.color)
         this.handleComponentMoved(this.end2, this.end1)
       }
     }
@@ -117,7 +137,7 @@ export class Wire extends ComponentBase {
   }
 
   handleComponentMoved(movedEnd, otherEnd) {
-    if (this.svg) {
+    if (this.svg && this.parentElement.initialized) {
       const touchingWires = new Set(
         this.parentElement.getTouchingWireEnds(movedEnd, otherEnd)
       )
@@ -159,27 +179,37 @@ export class Wire extends ComponentBase {
   }
 
   addEventListeners(end, endX, endY) {
-    end.onmouseenter = () => this.changeColor('orange')
-    end.onmousedown = () => {
-      end.classList.add('draggable')
-      this.isDragging = true
-      this.endRadius = 3
-    }
-    end.onmouseup = () => {
-      end.classList.remove('draggable')
-      this.isDragging = false
-      this.endRadius = 1
-      this.drawAllPoints()
-    }
-    end.onmouseleave = () => {
-      this.changeColor(this.color)
-      this.endRadius = 1
-      this.drawAllPoints()
-    }
-    end.onmousemove = (event) => {
-      if (this.isDragging) {
-        this[endX] = (event.offsetX - this.parentOffsetX) / this.parentScale
-        this[endY] = (event.offsetY - this.parentOffsetY) / this.parentScale
+    if (this.classList.contains('moveable')) {
+      end.onmouseenter = () => {
+        this.color = 'orange'
+        this.changeColor('orange')
+        end.setAttribute('r', 3 * this.scale)
+      }
+      end.onmousedown = () => {
+        end.classList.add('draggable')
+        this.isDragging = true
+        this.endRadius = 3
+        console.log('mousedown')
+      }
+      end.onmouseup = () => {
+        end.classList.remove('draggable')
+        this.isDragging = false
+        this.endRadius = 0.75
+        this.drawAllPoints()
+      }
+      end.onmouseleave = () => {
+        end.classList.remove('draggable')
+        this.color = this.hasVoltage ? 'red' : 'black'
+        this.changeColor(this.color)
+        this.isDragging = false
+        this.endRadius = 0.75
+        this.drawAllPoints()
+      }
+      end.onmousemove = (event) => {
+        if (this.isDragging) {
+          this[endX] = (event.offsetX - this.parentOffsetX) / this.parentScale
+          this[endY] = (event.offsetY - this.parentOffsetY) / this.parentScale
+        }
       }
     }
   }

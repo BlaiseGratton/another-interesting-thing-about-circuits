@@ -6,7 +6,7 @@ const BAR_SPACING = 6
 export class GroundConnection extends Wire {
   constructor() {
     super()
-    this.end2.remove()
+    this.end2?.remove()
     this.end2 = undefined
     this.line1 = createSVGElement('line')
     this.line2 = createSVGElement('line')

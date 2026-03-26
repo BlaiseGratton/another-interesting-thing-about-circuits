@@ -20,30 +20,20 @@ export class OnesComplement extends ComponentContainer {
       if (this.bottomPorts) {
         const slot = this.width / 9
 
-        this.invertWire1 = this.addWire(8, this.height / 2, 8, 4)
+        this.invertWire1 = this.addWire(8, this.height / 2, 10, 4)
 
         for (let i = 0; i < this.topPorts; i++) {
           const xorGate = document.createElement('xor-gate')
           xorGate.setAttribute('port-scale-outer', 0.2)
           xorGate.setAttribute('scale', 0.25)
-          xorGate.x = slot * i + 11 * this.scale
+          xorGate.x = slot * i + 11
           xorGate.y = 10
           this.appendChild(xorGate)
 
-          this.addWire(
-            slot * i + 8 * this.scale,
-            4,
-            slot * i + 17 * this.scale,
-            8
-          )
+          this.addWire(slot * i + 10, 4, slot * i + 17, 8)
 
           if (i < this.topPorts - 1) {
-            this.addWire(
-              slot * i + 8 + this.scale,
-              4,
-              slot * (i + 1) + 10 * this.scale,
-              4
-            )
+            this.addWire(slot * i + 10, 4, slot * (i + 1) + 10, 4)
           }
 
           this.addWire(

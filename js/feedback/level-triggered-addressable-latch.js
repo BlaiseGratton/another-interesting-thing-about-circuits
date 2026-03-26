@@ -59,34 +59,59 @@ export class LevelTriggeredAddressableLatch extends ComponentContainer {
       )
 
       // reset circuit
-      this.addComponent('splitter-relay', 4, 4, {
-        scale: 0.05,
-        'port-scale-outer': 0.2
-      })
-      this.addComponent('splitter-relay', 15, 4, {
-        scale: 0.05,
-        'port-scale-outer': 0.2
-      })
-      this.addComponent('splitter-relay', 4, 42, {
-        scale: 0.05,
-        'port-scale-outer': 0.2
-      })
-      this.addComponent('splitter-relay', 15, 42, {
-        scale: 0.05,
-        'port-scale-outer': 0.2
-      })
-      this.addWire(9, 2, 8, 37)
-      this.addWire(20, 2, 8, 37)
-      this.addWire(9, 41, 8, 37)
-      this.addWire(20, 41, 8, 37)
-      this.addWire(7, 16, slotWidth - 7, 8)
-      this.addWire(11, 16, slotWidth * 2 - 7, 8)
-      this.addWire(18, 16, slotWidth * 3 - 7, 8)
-      this.addWire(22, 16, slotWidth * 4 - 7, 8)
-      this.addWire(7, 54, slotWidth * 5 - 7, 8)
-      this.addWire(11, 54, slotWidth * 6 - 7, 8)
-      this.addWire(18, 54, slotWidth * 7 - 7, 8)
-      this.addWire(22, 54, slotWidth * 8 - 7, 8)
+      this.addWire(8, this.height / 2, 8, this.height - 1)
+
+      for (let i = 0; i < 4; i++) {
+        this.addComponent(
+          'splitter-relay',
+          slotWidth * 2 * (i + 1) - 32,
+          this.height - 9,
+          {
+            scale: 0.045,
+            'port-scale-outer': 0.2,
+            orientation: 'horizontal'
+          }
+        )
+
+        this.addWire(
+          slotWidth * 2 * i - (i === 0 ? -8 : 34),
+          this.height - 1,
+          slotWidth * 2 * (i + 1) - 34,
+          this.height - 1
+        )
+        this.addWire(
+          slotWidth * 2 * (i + 1) - 34,
+          this.height - 5,
+          slotWidth * 2 * (i + 1) - 34,
+          this.height - 1
+        )
+
+        this.addWire(
+          slotWidth * 2 * (i + 1) - 22.1,
+          this.height - 6.5,
+          slotWidth * 2 * (i + 1) - 24,
+          8
+        )
+        this.addWire(
+          slotWidth * 2 * (i + 1) - 24,
+          8,
+          slotWidth * 2 * (i + 1) - 50,
+          8
+        )
+
+        this.addWire(
+          slotWidth * 2 * (i + 1) - 22,
+          this.height - 3.5,
+          slotWidth * 2 * (i + 1) - 19,
+          8
+        )
+        this.addWire(
+          slotWidth * 2 * (i + 1) - 19,
+          8,
+          slotWidth * 2 * (i + 1),
+          8
+        )
+      }
     }
   }
 }

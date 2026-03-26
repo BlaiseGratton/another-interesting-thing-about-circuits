@@ -24,6 +24,7 @@ export class SimpleRelay extends ComponentContainer {
 
   constructor() {
     super()
+    this.hasMovement = true
     this.leftPorts = 2
     this.rightPorts = 1
   }
