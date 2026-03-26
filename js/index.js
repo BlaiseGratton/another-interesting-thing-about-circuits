@@ -13,6 +13,7 @@ import { TwoToOneSelector } from './utilities/two-to-one-selector.js'
 import { TwoToOneSelectorBank } from './utilities/two-to-one-selector-bank.js'
 import { EightToOneSelector } from './utilities/eight-to-one-selector.js'
 import { ThreeToEightDecoder } from './utilities/three-to-eight-decoder.js'
+import { WireSnake } from './utilities/wire-snake.js'
 
 import { SimpleSwitch } from './switches/simple-switch.js'
 import { SwitchBank } from './switches/switch-bank.js'
