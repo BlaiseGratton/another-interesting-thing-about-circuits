@@ -7,101 +7,77 @@
     <script src="/js/index.js" type="module"></script>
   </head>
   <body>
-    <a href="./pages/eight-bit-adder.html">8-bit Adder</a>
-    <a href="./pages/simple-subtraction.html">Simple Subtraction</a>
-    <a href="./pages/addition-with-latch.html">Addition With Latch</a>
-    <a href="./pages/eight-bit-ripple-counter.html">8-bit Ripple Counter</a>
-    <label>Scale</label>
-    <input
-      id="container-scale"
-      type="number"
-      step="0.01"
-      value="2"
-      min="0.01"
-    />
+    <div>
+      <ul>
+        <li>
+          <a href="./pages/eight-bit-adder">8-bit Adder</a>
+        </li>
+        <li>
+          <a href="./pages/simple-subtraction">Simple Subtraction</a>
+        </li>
+        <li>
+          <a href="./pages/addition-with-latch">Addition With Latch</a>
+        </li>
+        <li>
+          <a href="./pages/eight-bit-ripple-counter">8-bit Ripple Counter</a>
+        </li>
+        <li>
+          <a href="./pages/ram-emulator">RAM Emulator</a>
+        </li>
+        <li>
+          <a href="./pages/16-bit-counter-with-set">16-bit Counter With Set</a>
+        </li>
+        <li>
+          <a href="./pages/separate-instructions-v1"
+            >Simple Processor - Separate Instructions</a
+          >
+        </li>
+      </ul>
+      <label>Scale</label>
+      <input
+        id="container-scale"
+        type="number"
+        step="0.01"
+        value="2"
+        min="0.01"
+      />
+      <label> Data</label>
+      <input id="data-input" type="text" />
+      <button id="load-data">Load</button>
+      <button id="clear-data">Clear</button>
+      <label>Program</label>
+      <input id="program-input" type="text" value="16,32,32,17,255" />
+      <button id="load-program">Load</button>
+      <button id="clear-program">Clear</button>
+    </div>
 
     <component-container height="1250" width="1000">
-      <!-- <simple-switch x="225" y="47" on="4"></simple-switch> -->
-      <!-- <simple-switch x="280" y="47" on="2"></simple-switch> -->
-      <!-- <simple-switch x="335" y="47" on="1"></simple-switch> -->
-      <power-source x1="20" y1="20" x2="30" y2="30"></power-source>
-      <wire-snake
-        orientation="horizontal"
+      <simple-switch x="17" y="35" port-scale-outer="3.5"></simple-switch>
+      <switch-bank x="50" y="33"></switch-bank>
+      <eight-bit-ripple-counter
         x="50"
         y="100"
-        width="100"
-        left-fan="188,43,10,43"
-        right-fan="200,100,100,150"
-        scale=".6"
-      ></wire-snake>
-      <wire-snake
-        x="200"
-        y="200"
-        orientation="vertical"
-        height="30"
-        scale=".7"
-        top-fan="100,150,200,100"
-        bottom-fan="425,292,780,292"
-      ></wire-snake>
-      <wire-element
-        x1="30"
-        y1="30"
-        x2="86"
-        y2="72"
-        class="moveable"
-      ></wire-element>
-      <wire-element
-        x1="100"
-        y1="68"
-        x2="122"
-        y2="72"
-        class="moveable"
-      ></wire-element>
-      <!-- <simple-relay x="50" y="80"></simple-relay> -->
+        movement-delay="1"
+      ></eight-bit-ripple-counter>
 
-      <simple-switch x="375" y="10" on="Data"></simple-switch>
+      <simple-switch x="433" y="35" port-scale-outer="3.5"></simple-switch>
+      <switch-bank x="466" y="33"></switch-bank>
+      <eight-bit-ripple-counter
+        x="466"
+        y="100"
+        movement-delay="1"
+        offset-bottom="-61"
+      ></eight-bit-ripple-counter>
+      <simple-switch x="849" y="45" port-scale-outer="3.8"></simple-switch>
 
-      <ground-bank x="425" y="300"></ground-bank>
-      <!-- <wire-element x1="500" y1="268" x2="458" y2="269"></wire-element> -->
-
-      <switch-bank x="10" y="10" scale=".5"></switch-bank>
-
-      <!-- <wire-element x1="143" y1="44" x2="5" y2="115"></wire-element>
-      <wire-element x1="5" y1="115" x2="5" y2="190"></wire-element>
-      <wire-element x1="5" y1="190" x2="42" y2="190"></wire-element>
-      <wire-element x1="5" y1="190" x2="5" y2="399"></wire-element>
-      <wire-element x1="5" y1="399" x2="42" y2="399"></wire-element>
-
-      <wire-element x1="166" y1="44" x2="20" y2="115"></wire-element>
-      <wire-element x1="20" y1="115" x2="20" y2="165"></wire-element>
-      <wire-element x1="20" y1="165" x2="42" y2="165"></wire-element>
-      <wire-element x1="20" y1="165" x2="20" y2="374"></wire-element>
-      <wire-element x1="20" y1="374" x2="42" y2="374"></wire-element>
-
-      <wire-element x1="188" y1="44" x2="35" y2="115"></wire-element>
-      <wire-element x1="35" y1="115" x2="35" y2="140"></wire-element>
-      <wire-element x1="35" y1="140" x2="42" y2="140"></wire-element>
-      <wire-element x1="35" y1="140" x2="35" y2="349"></wire-element>
-      <wire-element x1="35" y1="349" x2="42" y2="349"></wire-element>
-
-      <simple-switch x="10" y="50" on="Reset" scale="0.4"></simple-switch>
-      <wire-element x1="20" y1="79" x2="42" y2="268"></wire-element>
-
-      <three-to-eight-decoder x="50" y="115"></three-to-eight-decoder>
-
-      <level-triggered-addressable-latch
+      <binary-to-decimal-bank
         x="50"
-        y="232"
-      ></level-triggered-addressable-latch>
-
-      <eight-to-one-selector x="50" y="324"></eight-to-one-selector> -->
-
-      <ground-connection
-        x1="105"
-        y1="288"
-        x2="110"
-        y2="350"
-      ></ground-connection>
+        y="163"
+        width="755"
+        bits="16"
+      ></binary-to-decimal-bank>
+      <ground-bank x="50" y="220"></ground-bank>
+      <ground-bank x="405" y="220"></ground-bank>
     </component-container>
   </body>
   <script>
@@ -111,6 +87,67 @@
     scale.onchange = (event) => {
       container.setAttribute('scale', event.target.value)
     }
+
+    const dataInput = document.querySelector('#data-input')
+    const dataRAM = document.querySelector('#data-ram')
+    const loadDataButton = document.querySelector('#load-data')
+    const clearDataButton = document.querySelector('#clear-data')
+
+    const programInput = document.querySelector('#program-input')
+    const programRAM = document.querySelector('#program-ram')
+    const loadProgramButton = document.querySelector('#load-program')
+    const clearProgramButton = document.querySelector('#clear-program')
+
+    loadDataButton.onclick = () => {
+      dataInput.value.split(',').map((n, index) => {
+        const rep = n ? parseInt(n).toString(2).padStart(dataRAM.bits, '0') : ''
+        const ramSlot = dataRAM.array[index]
+        ramSlot.value = rep
+        ramSlot.element.textContent = rep
+        dataRAM.select()
+      })
+    }
+
+    opCodes = {
+      LOD: '00010000',
+      STO: '00010001',
+      ADD: '00100000',
+      SUB: '00100001',
+      ADC: '00100010',
+      SBB: '00100011',
+      JMP: '00110000',
+      JZ: '00110001',
+      JC: '00110010',
+      JNZ: '00110011',
+      JNC: '00110100',
+      HLT: '11111111'
+    }
+
+    loadProgramButton.onclick = () => {
+      programInput.value.split(',').map((inst, index) => {
+        const ramSlot = programRAM.array[index]
+        let rep = ''
+        if (parseInt(inst)) {
+          rep = parseInt(inst).toString(2).padStart(programRAM.bits, '0')
+        } else {
+          rep = opCodes[inst]
+        }
+        ramSlot.value = rep
+        ramSlot.element.textContent = rep
+        programRAM.select()
+      })
+    }
+
+    const clearRAM = (ram) => () => {
+      ram.array.forEach((slot) => {
+        slot.value = ''
+        slot.element.textContent = ''
+      })
+    }
+
+    clearDataButton.onclick = clearRAM(dataRAM)
+    clearProgramButton.onclick = clearRAM(programRAM)
+
     this.logging = {
       wire: {
         addWireConnection: false,

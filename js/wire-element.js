@@ -63,6 +63,11 @@ export class Wire extends HTMLElement {
     }
   }
 
+  destroy() {
+    this.line.remove()
+    this.parentElement.componentGraph.deregisterElement(this)
+  }
+
   connectedCallback() {
     if (this.svg) {
       this.parentElement.componentGraph.registerElement(this)

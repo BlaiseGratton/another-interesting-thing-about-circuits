@@ -1,6 +1,9 @@
 import { ComponentContainer } from '../component-container.js'
 
 export class AndGate extends ComponentContainer {
+  get movementDelay() {
+    return this.getAttribute('movement-delay')
+  }
   constructor() {
     super()
     this.leftPorts = 2
@@ -19,7 +22,8 @@ export class AndGate extends ComponentContainer {
         this.relay1 = this.addComponent('simple-relay', 16, 4, {
           scale: 0.2,
           orientation: 'horizontal',
-          'port-scale-outer': 0.2
+          'port-scale-outer': 0.2,
+          'movement-delay': this.movementDelay
         })
         this.powerSource = this.addWire(8, 8, 14, 11, 'power-source')
         this.powerSource.setAttribute('scale', 0.25)
@@ -27,7 +31,8 @@ export class AndGate extends ComponentContainer {
         this.relay2 = this.addComponent('simple-relay', 16, 45, {
           scale: 0.2,
           orientation: 'horizontal',
-          'port-scale-outer': 0.2
+          'port-scale-outer': 0.2,
+          'movement-delay': this.movementDelay
         })
 
         this.wire2 = this.addWire(58, 15, 58, 37)
@@ -48,14 +53,16 @@ export class AndGate extends ComponentContainer {
       if (this.svg) {
         this.relay1 = this.addComponent('simple-relay', 4, 16, {
           scale: 0.2,
-          'port-scale-outer': 0.2
+          'port-scale-outer': 0.2,
+          'movement-delay': this.movementDelay
         })
         this.powerSource = this.addWire(8, 8, 11, 14, 'power-source')
         this.powerSource.setAttribute('scale', 0.25)
         this.wire1 = this.addWire(24, 8, 19, 14)
         this.relay2 = this.addComponent('simple-relay', 45, 16, {
           scale: 0.2,
-          'port-scale-outer': 0.2
+          'port-scale-outer': 0.2,
+          'movement-delay': this.movementDelay
         })
 
         this.wire2 = this.addWire(15, 58, 37, 58)

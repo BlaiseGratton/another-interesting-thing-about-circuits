@@ -17,7 +17,7 @@ export class WireSnake extends ComponentContainer {
   connectedCallback() {
     if (this.getAttribute('orientation') === 'vertical') {
       this.orientation = 'vertical'
-      this.width = 40
+      this.width ||= 40
       if (!this.height) {
         throw new Error('Height required')
       }
@@ -33,7 +33,7 @@ export class WireSnake extends ComponentContainer {
     }
     if (this.getAttribute('orientation') === 'horizontal') {
       this.orientation = 'horizontal'
-      this.height = 40
+      this.height ||= 40
       if (!this.width) {
         throw new Error('Width required')
       }
@@ -56,15 +56,15 @@ export class WireSnake extends ComponentContainer {
       const outsideHeight = (this.height * this.scale) / 9
       if (this.orientation === 'vertical') {
         let [x1, y1, x2, y2] = this.topFan.split(',').map(parseFloat)
-        let dx = (x2 - x1) / 8
-        let dy = (y2 - y1) / 8
+        let dx = (x2 - x1) / 7
+        let dy = (y2 - y1) / 7
 
         for (let i = 1; i <= 8; i++) {
           const wire = this.parentElement.addWire(
             this.x + outsideWidth * i,
             this.y - 8,
-            x1 + i * dx,
-            y1 + i * dy,
+            x1 + (i - 1) * dx,
+            y1 + (i - 1) * dy,
             'wire-element',
             ['moveable']
           )
@@ -72,15 +72,15 @@ export class WireSnake extends ComponentContainer {
         }
 
         ;[x1, y1, x2, y2] = this.bottomFan.split(',').map(parseFloat)
-        dx = (x2 - x1) / 8
-        dy = (y2 - y1) / 8
+        dx = (x2 - x1) / 7
+        dy = (y2 - y1) / 7
 
         for (let i = 1; i <= 8; i++) {
           const wire = this.parentElement.addWire(
             this.x + outsideWidth * i,
             this.y + this.height * this.scale + 8,
-            x1 + i * dx,
-            y1 + i * dy,
+            x1 + (i - 1) * dx,
+            y1 + (i - 1) * dy,
             'wire-element',
             ['moveable']
           )
@@ -88,8 +88,8 @@ export class WireSnake extends ComponentContainer {
         }
       } else if (this.orientation === 'horizontal') {
         let [x1, y1, x2, y2] = this.leftFan.split(',').map(parseFloat)
-        let dx = (x2 - x1) / 8
-        let dy = (y2 - y1) / 8
+        let dx = (x2 - x1) / 7
+        let dy = (y2 - y1) / 7
 
         for (let i = 1; i <= 8; i++) {
           const wire = this.parentElement.addWire(
@@ -104,8 +104,8 @@ export class WireSnake extends ComponentContainer {
         }
 
         ;[x1, y1, x2, y2] = this.rightFan.split(',').map(parseFloat)
-        dx = (x2 - x1) / 8
-        dy = (y2 - y1) / 8
+        dx = (x2 - x1) / 7
+        dy = (y2 - y1) / 7
 
         for (let i = 1; i <= 8; i++) {
           const wire = this.parentElement.addWire(

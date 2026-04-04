@@ -8,6 +8,14 @@ export class NorGateThree extends ComponentContainer {
   }
 
   connectedCallback() {
+    this.movementDelay = this.getAttribute('movement-delay')
+    const relayConfig = {
+      scale: 0.2,
+      'port-scale-outer': 0.2
+    }
+    if (this.movementDelay) {
+      relayConfig['movement-delay'] = this.movementDelay
+    }
     if (this.isHorizontal) {
       this.width = 75
       this.height = 100
@@ -16,18 +24,24 @@ export class NorGateThree extends ComponentContainer {
       super.connectedCallback()
 
       if (this.svg) {
-        this.inverter1 = this.addComponent('double-throw-relay', 16, 4, {
-          scale: 0.2,
-          'port-scale-outer': 0.2
-        })
-        this.inverter2 = this.addComponent('inverter-relay', 16, 36, {
-          scale: 0.2,
-          'port-scale-outer': 0.2
-        })
-        this.inverter3 = this.addComponent('inverter-relay', 16, 70, {
-          scale: 0.2,
-          'port-scale-outer': 0.2
-        })
+        this.inverter1 = this.addComponent(
+          'double-throw-relay',
+          16,
+          4,
+          relayConfig
+        )
+        this.inverter2 = this.addComponent(
+          'inverter-relay',
+          16,
+          36,
+          relayConfig
+        )
+        this.inverter3 = this.addComponent(
+          'inverter-relay',
+          16,
+          70,
+          relayConfig
+        )
         this.addWire(8, 24, 15, 16.5)
         this.addWire(58, 16.5, 58, 31)
         this.addWire(58, 31, 15, 31)
@@ -50,18 +64,24 @@ export class NorGateThree extends ComponentContainer {
       super.connectedCallback()
 
       if (this.svg) {
-        this.inverter1 = this.addComponent('double-throw-relay', 4, 16, {
-          scale: 0.2,
-          'port-scale-outer': 0.2
-        })
-        this.inverter2 = this.addComponent('inverter-relay', 36, 16, {
-          scale: 0.2,
-          'port-scale-outer': 0.2
-        })
-        this.inverter3 = this.addComponent('inverter-relay', 70, 16, {
-          scale: 0.2,
-          'port-scale-outer': 0.2
-        })
+        this.inverter1 = this.addComponent(
+          'double-throw-relay',
+          4,
+          16,
+          relayConfig
+        )
+        this.inverter2 = this.addComponent(
+          'inverter-relay',
+          36,
+          16,
+          relayConfig
+        )
+        this.inverter3 = this.addComponent(
+          'inverter-relay',
+          70,
+          16,
+          relayConfig
+        )
         this.addWire(24, 8, 16.5, 15)
         this.addWire(16.5, 58, 31, 58)
         this.addWire(31, 58, 31, 15)

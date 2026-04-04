@@ -4,13 +4,14 @@ import { createSVGElement } from '../svg.js'
 export class BinaryToDecimalBank extends ComponentContainer {
   constructor() {
     super()
-    this.topPorts = 8
-    this.bottomPorts = 8
     this.leftPorts = 1
   }
 
   connectedCallback() {
     this.height = 40
+    this.bits = parseInt(this.getAttribute('bits') || 8)
+    this.topPorts = this.bits
+    this.bottomPorts = this.bits
     this.setAttribute('top-ports', this.topPorts)
     this.setAttribute('bottom-ports', this.bottomPorts)
     this.setAttribute('left-ports', this.leftPorts)
@@ -20,13 +21,14 @@ export class BinaryToDecimalBank extends ComponentContainer {
 
     if (this.svg) {
       this.slotWidth = this.width / (this.topPorts + 1)
+
       for (let i = 0; i < this.topPorts; i++) {
         const wire = document.createElement('wire-element')
         wire.x1 = this.slotWidth * (i + 1)
         wire.x2 = this.slotWidth * (i + 1)
         wire.y1 = 8
         wire.y2 = this.height - 8
-        wire.value = 2 ** (7 - i)
+        wire.value = 2 ** (this.bits - 1 - i)
         this.appendChild(wire)
         this.digitWires.push(wire)
         wire.addEventListener('voltage-changed', () =>
@@ -69,7 +71,15 @@ export class BinaryToDecimalBank extends ComponentContainer {
         this.height - 8,
         'ground-connection'
       )
-      this.signedUnsignedSignal.setAttribute('scale', 0.5)
+
+      // signed/unsigned switch
+      this.addComponent('simple-switch', 4, 3, {
+        scale: 0.2,
+        on: 'Signed',
+        off: 'Unsigned'
+      })
+
+      this.signedUnsignedSignal.setAttribute('scale', 0.3)
       this.signedUnsignedSignal.value = 1
       this.signedUnsignedSignal.addEventListener('voltage-changed', (event) => {
         this.signed = event.target.hasVoltage
@@ -110,14 +120,14 @@ export class BinaryToDecimalBank extends ComponentContainer {
     let value
     if (this.signed) {
       if (binaryRep[0] === '1') {
-        value = parseInt(binaryRep.slice(1), 2) - 128
+        value = parseInt(binaryRep.slice(1), 2) - 2 ** (this.bits - 1)
       } else {
         value = parseInt(binaryRep, 2)
       }
     } else {
       value = parseInt(binaryRep, 2)
     }
-    this.totalDisplay.textContent = value
+    this.totalDisplay.textContent = value.toLocaleString()
   }
 }
 

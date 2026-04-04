@@ -254,6 +254,11 @@ export class ComponentContainer extends HTMLElement {
 
   initialize() {
     this.initialized = true
+    if (this.initializeFunction) {
+      setTimeout(() => {
+        this.initializeFunction()
+      }, 1000)
+    }
     this.svg.querySelectorAll('&> .wire-end').forEach((wireEnd) => {
       const wireElement = wireEnd.component
       const { end1, end2 } = wireElement

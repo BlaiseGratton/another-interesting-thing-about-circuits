@@ -28,6 +28,12 @@ export class PowerSource extends Wire {
     }
   }
 
+  destroy() {
+    super.destroy()
+    this.line1.remove()
+    this.line2.remove()
+  }
+
   drawSymbol() {
     this.line1.setAttribute('x1', this.x1 * this.parentScale)
     this.line1.setAttribute('y1', this.y1 * this.parentScale)

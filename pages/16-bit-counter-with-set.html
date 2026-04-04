@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Another Interesting Thing About Circuits</title>
+    <script src="/js/index.js" type="module"></script>
+  </head>
+  <body>
+    <a href="/">Home</a>
+    <component-container height="1250" width="1000" scale="2">
+      <simple-switch
+        x="17"
+        y="35"
+        port-scale-outer="3.5"
+        on="Set"
+      ></simple-switch>
+      <switch-bank x="50" y="33"></switch-bank>
+      <eight-bit-ripple-counter
+        x="50"
+        y="100"
+        movement-delay="1"
+      ></eight-bit-ripple-counter>
+
+      <simple-switch
+        x="433"
+        y="35"
+        port-scale-outer="3.5"
+        on="Set"
+      ></simple-switch>
+      <switch-bank x="466" y="33"></switch-bank>
+      <eight-bit-ripple-counter
+        x="466"
+        y="100"
+        movement-delay="1"
+        offset-bottom="-61"
+      ></eight-bit-ripple-counter>
+      <simple-switch
+        x="849"
+        y="45"
+        port-scale-outer="3.8"
+        on="Tick"
+      ></simple-switch>
+
+      <binary-to-decimal-bank
+        x="50"
+        y="163"
+        width="755"
+        bits="16"
+      ></binary-to-decimal-bank>
+      <ground-bank x="50" y="220"></ground-bank>
+      <ground-bank x="405" y="220"></ground-bank>
+    </component-container>
+  </body>
+</html>

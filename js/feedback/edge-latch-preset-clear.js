@@ -17,37 +17,53 @@ export class EdgeTriggeredLatchWithPresetClear extends ComponentContainer {
     this.setAttribute('bottom-ports', this.bottomPorts)
     this.setAttribute('left-ports', this.leftPorts)
     this.setAttribute('right-ports', this.rightPorts)
+    this.movementDelay = this.getAttribute('movement-delay')
     super.connectedCallback()
 
     if (this.svg) {
+      const tempPower = this.addWire(110, 64, 138, 63, 'power-source')
+      tempPower.setAttribute('scale', 0.1)
+      this.initializeFunction = () => {
+        setTimeout(() => {
+          tempPower.destroy()
+        }, 1000)
+      }
       this.addComponent('double-throw-relay', 80, 4, {
         scale: 0.1,
-        'port-scale-outer': 0.2
+        'port-scale-outer': 0.2,
+        'movement-delay': this.movementDelay
       })
       this.addComponent('nor-gate-three', 20, 33, {
         scale: 0.3,
-        'port-scale-outer': 0.2
+        'port-scale-outer': 0.2,
+        'movement-delay': this.movementDelay
       })
       this.addComponent('nor-gate-three', 60, 33, {
         scale: 0.3,
-        'port-scale-outer': 0.2
+        'port-scale-outer': 0.2,
+        'movement-delay': this.movementDelay
       })
       this.addComponent('nor-gate-three', 110, 33, {
         scale: 0.3,
-        'port-scale-outer': 0.2
+        'port-scale-outer': 0.2,
+        'movement-delay': this.movementDelay
       })
       this.addComponent('nor-gate-three', 150, 33, {
         scale: 0.3,
-        'port-scale-outer': 0.2
+        'port-scale-outer': 0.2,
+        'movement-delay': this.movementDelay
       })
-      this.addComponent('nor-gate-three', 40, 65, {
+
+      const flipFlopAttrs = {
         scale: 0.3,
         'port-scale-outer': 0.2
-      })
-      this.addComponent('nor-gate-three', 130, 65, {
-        scale: 0.3,
-        'port-scale-outer': 0.2
-      })
+      }
+      if (this.movementDelay) {
+        flipFlopAttrs['movement-delay'] = this.movementDelay
+      }
+      this.addComponent('nor-gate-three', 40, 65, flipFlopAttrs)
+      this.addComponent('nor-gate-three', 130, 65, flipFlopAttrs)
+
       //data in
       this.addWire(133, 2, 35, 5)
       this.addWire(35, 5, 28, 31)

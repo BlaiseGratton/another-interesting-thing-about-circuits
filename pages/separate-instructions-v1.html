@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Another Interesting Thing About Circuits</title>
+    <script src="/js/index.js" type="module"></script>
+  </head>
+  <body>
+    <a href="/">Home</a>
+    <label> Data</label>
+    <input id="data-input" type="text" />
+    <button id="load-data">Load</button>
+    <button id="clear-data">Clear</button>
+    <label>Program</label>
+    <input id="program-input" type="text" value="16,32,32,17,255" />
+    <button id="load-program">Load</button>
+    <button id="clear-program">Clear</button>
+    <component-container height="1250" width="1000" scale="2">
+      <!-- program counter -->
+      <simple-switch
+        x="330"
+        y="1"
+        scale=".5"
+        on="Reset"
+        off="Run"
+        initial="on"
+      ></simple-switch>
+      <eight-bit-ripple-counter x="350" y="10"></eight-bit-ripple-counter>
+      <simple-switch
+        x="747"
+        y="1"
+        on="Tick"
+        off="Execute"
+        initial="on"
+        scale=".5"
+      ></simple-switch>
+
+      <!-- opcode out -->
+      <wire-snake
+        x="800"
+        y="20"
+        orientation="horizontal"
+        width="100"
+        right-fan="898,1071,898,264"
+        left-fan="500,140,600,140"
+      ></wire-snake>
+
+      <!-- clock execute signal -->
+      <wire-element x1="760" y1="34" x2="475" y2="95"></wire-element>
+      <double-throw-relay x="468" y="103" scale=".12"></double-throw-relay>
+      <wire-element x1="475" y1="135" x2="200" y2="145"></wire-element>
+
+      <!-- LOD signal to selector -->
+      <wire-element x1="543" y1="140" x2="220" y2="185"></wire-element>
+      <wire-element x1="220" y1="185" x2="240" y2="500"></wire-element>
+      <double-throw-relay x="232" y="508" scale=".12"></double-throw-relay>
+      <wire-element x1="240" y1="540" x2="292" y2="537"></wire-element>
+      <wire-element x1="240" y1="500" x2="215" y2="500"></wire-element>
+
+      <!-- LOD signal with clock write -->
+      <wire-element x1="200" y1="145" x2="200" y2="600"></wire-element>
+      <and-gate x="195" y="608" scale=".2"></and-gate>
+      <wire-element x1="203" y1="631" x2="226" y2="662"></wire-element>
+
+      <!-- ADD signal to clock write -->
+      <wire-element x1="528" y1="140" x2="210" y2="185"></wire-element>
+      <wire-element x1="210" y1="185" x2="210" y2="500"></wire-element>
+      <or-gate x="205" y="508" scale=".2"></or-gate>
+
+      <!-- STO signal to clock write (for ignore)-->
+      <wire-element x1="600" y1="140" x2="230" y2="185"></wire-element>
+      <wire-element x1="230" y1="185" x2="220" y2="532"></wire-element>
+      <xor-gate x="205" y="540" scale=".3"></xor-gate>
+      <wire-element x1="216" y1="584" x2="206" y2="600"></wire-element>
+
+      <!-- STO signal to RAM write -->
+      <and-gate-three x="170" y="135" scale=".2"></and-gate-three>
+      <wire-element x1="600" y1="140" x2="182" y2="127"></wire-element>
+      <wire-element x1="200" y1="145" x2="187" y2="127"></wire-element>
+      <wire-element x1="220" y1="185" x2="176" y2="127"></wire-element>
+      <wire-element x1="182" y1="156" x2="104" y2="141"></wire-element>
+
+      <!-- RAM selectors -->
+      <wire-snake
+        x="150"
+        y="85"
+        orientation="horizontal"
+        width="75"
+        left-fan="108,142,136,142"
+        right-fan="394,66,705,66"
+      >
+      </wire-snake>
+      <wire-snake
+        x="765"
+        y="85"
+        orientation="horizontal"
+        width="75"
+        left-fan="705,66,394,66"
+        right-fan="886,142,858,142"
+      >
+      </wire-snake>
+
+      <!-- write signal for RAM-->
+      <simple-switch
+        x="92"
+        y="100"
+        scale=".5"
+        on="Write"
+        port-scale-outer="2"
+      ></simple-switch>
+
+      <!-- data RAM-->
+      <ram-emulator x="100" y="150" id="data-ram"></ram-emulator>
+
+      <!-- instruction RAM -->
+      <ram-emulator x="850" y="150" id="program-ram"></ram-emulator>
+
+      <!-- RAM to processor -->
+      <wire-snake
+        x="190"
+        y="240"
+        orientation="horizontal"
+        width="30"
+        right-fan="240,240,240,280"
+        left-fan="148,265,148,1071"
+      ></wire-snake>
+      <wire-snake
+        x="275"
+        y="175"
+        orientation="horizontal"
+        width="50"
+        left-fan="240,240,240,280"
+        right-fan="488,222,324,222"
+      ></wire-snake>
+      <wire-snake
+        x="275"
+        y="325"
+        orientation="horizontal"
+        width="50"
+        left-fan="240,240,240,280"
+        right-fan="488,492,324,492"
+      ></wire-snake>
+
+      <!-- adder to 2-to-1 to accumulator -->
+      <eight-bit-adder x="300" y="230"></eight-bit-adder>
+
+      <wire-snake
+        x="520"
+        y="350"
+        orientation="vertical"
+        height="40"
+        top-fan="344,313,656,313"
+        bottom-fan="512,492,676,492"
+      ></wire-snake>
+
+      <two-to-one-selector-bank x="300" y="500"></two-to-one-selector-bank>
+      <simple-switch
+        x="279"
+        y="490"
+        scale="0.5"
+        off="RAM"
+        on="Adder"
+        port-scale-outer="2.75"
+      ></simple-switch>
+
+      <wire-snake
+        x="480"
+        y="595"
+        height="30"
+        orientation="vertical"
+        top-fan="344,583,656,583"
+        bottom-fan="313,642,687,642"
+      ></wire-snake>
+
+      <!-- reset for latch -->
+      <simple-switch x="220" y="642" scale=".25"></simple-switch>
+      <wire-element
+        x1="226"
+        y1="663"
+        x2="252"
+        y2="690"
+        class="moveable"
+      ></wire-element>
+
+      <!-- accumulator -->
+      <edge-triggered-latch-array
+        x="260"
+        y="650"
+        scale=".8"
+      ></edge-triggered-latch-array>
+
+      <!-- accumulator to adder -->
+      <wire-snake
+        x="700"
+        y="775"
+        orientation="horizontal"
+        width="75"
+        left-fan="687,718,313,718"
+        right-fan="790,742,820,770"
+      ></wire-snake>
+      <wire-snake
+        x="775"
+        y="150"
+        height="575"
+        orientation="vertical"
+        bottom-fan="790,742,820,770"
+        top-fan="676,222,512,222"
+      ></wire-snake>
+
+      <!-- accumulator to RAM -->
+      <wire-snake
+        x="150"
+        y="1200"
+        orientation="horizontal"
+        width="100"
+        right-fan="313,718,687,718"
+        left-fan="60,1200,20,1200"
+      ></wire-snake>
+      <wire-snake
+        x="20"
+        y="1000"
+        orientation="vertical"
+        height="70"
+        bottom-fan="20,1200,60,1200"
+        top-fan="92,265,92,1071"
+      ></wire-snake>
+    </component-container>
+  </body>
+  <script>
+    const dataInput = document.querySelector('#data-input')
+    const dataRAM = document.querySelector('#data-ram')
+    const loadDataButton = document.querySelector('#load-data')
+    const clearDataButton = document.querySelector('#clear-data')
+
+    const programInput = document.querySelector('#program-input')
+    const programRAM = document.querySelector('#program-ram')
+    const loadProgramButton = document.querySelector('#load-program')
+    const clearProgramButton = document.querySelector('#clear-program')
+
+    loadDataButton.onclick = () => {
+      dataInput.value.split(',').map((n, index) => {
+        const rep = n ? parseInt(n).toString(2).padStart(dataRAM.bits, '0') : ''
+        const ramSlot = dataRAM.array[index]
+        ramSlot.value = rep
+        ramSlot.element.textContent = rep
+        dataRAM.select()
+      })
+    }
+
+    opCodes = {
+      LOD: '00010000',
+      STO: '00010001',
+      ADD: '00100000',
+      SUB: '00100001',
+      ADC: '00100010',
+      SBB: '00100011',
+      JMP: '00110000',
+      JZ: '00110001',
+      JC: '00110010',
+      JNZ: '00110011',
+      JNC: '00110100',
+      HLT: '11111111'
+    }
+
+    loadProgramButton.onclick = () => {
+      programInput.value.split(',').map((inst, index) => {
+        const ramSlot = programRAM.array[index]
+        let rep = ''
+        if (parseInt(inst)) {
+          rep = parseInt(inst).toString(2).padStart(programRAM.bits, '0')
+        } else {
+          rep = opCodes[inst]
+        }
+        ramSlot.value = rep
+        ramSlot.element.textContent = rep
+        programRAM.select()
+      })
+    }
+
+    const clearRAM = (ram) => () => {
+      ram.array.forEach((slot) => {
+        slot.value = ''
+        slot.element.textContent = ''
+      })
+    }
+
+    clearDataButton.onclick = clearRAM(dataRAM)
+    clearProgramButton.onclick = clearRAM(programRAM)
+
+    this.logging = {
+      wire: {
+        addWireConnection: false,
+        disconnectWire: false
+      },
+      componentGraph: {
+        determineFlow: false
+      }
+    }
+  </script>
+</html>

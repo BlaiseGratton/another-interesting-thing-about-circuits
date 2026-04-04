@@ -6,7 +6,7 @@ export class ComponentGraph {
     this.elements = new Set()
     this.sources = new Set()
     this.sinks = new Set()
-    this.debouncedDetermineFlow = debounce(this._determineFlow, 40)
+    this.debouncedDetermineFlow = debounce(this._determineFlow, 2)
     this.initialized = false
   }
 
@@ -22,6 +22,13 @@ export class ComponentGraph {
     } else {
       this.elements.add(element)
     }
+  }
+
+  deregisterElement(element) {
+    if (element.nodeName === 'POWER-SOURCE') {
+      this.sources.delete(element)
+    }
+    this.determineFlow()
   }
 
   determineFlow() {

@@ -28,10 +28,7 @@ export class FlipFlop extends ComponentContainer {
         })
 
         // feedback route 1
-        const gate1ToGate2Wire = this.addWire(65, 21, 63, 32)
-        setTimeout(() => {
-          gate1ToGate2Wire.setAttribute('y2', 37)
-        }, 250)
+        const gate1ToGate2Wire = this.addWire(65, 21, 63, 37)
         this.addWire(63, 37, 20, 58)
         this.addWire(20, 58, 12, 73)
 
@@ -64,10 +61,7 @@ export class FlipFlop extends ComponentContainer {
         })
 
         // feedback route 1
-        const gate1ToGate2Wire = this.addWire(22, 65, 32, 63)
-        setTimeout(() => {
-          gate1ToGate2Wire.setAttribute('x2', 37)
-        }, 250)
+        const gate1ToGate2Wire = this.addWire(21, 65, 37, 63)
         this.addWire(37, 63, 58, 20)
         this.addWire(58, 20, 73, 12)
 

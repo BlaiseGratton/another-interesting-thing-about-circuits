@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Another Interesting Thing About Circuits</title>
+    <script src="/js/index.js" type="module"></script>
+  </head>
+  <body>
+    <a href="/">Home</a>
+    <component-container height="1700" width="1000" scale="3">
+      <!-- write signal -->
+      <simple-switch x="35" y="10" on="Write"></simple-switch>
+      <wire-element
+        x1="60"
+        y1="68"
+        x2="204"
+        y2="92"
+        class="moveable"
+      ></wire-element>
+
+      <!-- address selectors -->
+      <switch-bank x="100" y="10" scale=".5"></switch-bank>
+      <wire-snake
+        x="210"
+        y="60"
+        height="10"
+        orientation="vertical"
+        top-fan="122,43,277,43"
+        abottom-fan="209,92,236,92"
+        bottom-fan="227,92,320,92"
+      ></wire-snake>
+
+      <!-- data in -->
+      <switch-bank x="1" y="100" scale=".5"></switch-bank>
+      <wire-snake
+        x="30"
+        y="150"
+        orientation="vertical"
+        height="30"
+        top-fan="23,134,178,134"
+        bottom-fan="192,1478,192,272"
+      >
+      </wire-snake>
+
+      <ram-emulator
+        x="200"
+        y="100"
+        scale="1"
+        address-inputs="10"
+      ></ram-emulator>
+
+      <!-- data out -->
+      <wire-snake
+        x="400"
+        y="140"
+        orientation="horizontal"
+        width="100"
+        aleft-fan="248,272,248,1478"
+        left-fan="368,272,368,1478"
+        right-fan="780,292,469,292"
+      ></wire-snake>
+      <ground-bank x="425" y="300"></ground-bank>
+    </component-container>
+  </body>
+</html>

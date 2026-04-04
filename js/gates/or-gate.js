@@ -1,6 +1,10 @@
 import { ComponentContainer } from '../component-container.js'
 
 export class OrGate extends ComponentContainer {
+  get movementDelay() {
+    return this.getAttribute('movement-delay')
+  }
+
   constructor() {
     super()
     this.leftPorts = 2
@@ -18,13 +22,15 @@ export class OrGate extends ComponentContainer {
       if (this.svg) {
         this.relay1 = this.addComponent('simple-relay', 16, 10, {
           scale: 0.2,
-          orientation: 'horizontal'
+          orientation: 'horizontal',
+          'movement-delay': this.movementDelay
         })
         this.powerSource1 = this.addWire(8, 8, 8, 17, 'power-source')
         this.powerSource1.setAttribute('scale', 0.25)
         this.relay2 = this.addComponent('simple-relay', 16, 36, {
           scale: 0.2,
-          orientation: 'horizontal'
+          orientation: 'horizontal',
+          'movement-delay': this.movementDelay
         })
         this.powerSource2 = this.addWire(8, 34, 8, 43, 'power-source')
         this.powerSource2.setAttribute('scale', 0.25)
@@ -40,12 +46,14 @@ export class OrGate extends ComponentContainer {
 
       if (this.svg) {
         this.relay1 = this.addComponent('simple-relay', 10, 16, {
-          scale: 0.2
+          scale: 0.2,
+          'movement-delay': this.movementDelay
         })
         this.powerSource1 = this.addWire(8, 8, 17, 8, 'power-source')
         this.powerSource1.setAttribute('scale', 0.25)
         this.relay2 = this.addComponent('simple-relay', 36, 16, {
-          scale: 0.2
+          scale: 0.2,
+          'movement-delay': this.movementDelay
         })
         this.powerSource2 = this.addWire(34, 8, 43, 8, 'power-source')
         this.powerSource2.setAttribute('scale', 0.25)
