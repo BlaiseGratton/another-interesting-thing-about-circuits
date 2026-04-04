@@ -44,6 +44,7 @@ import { EdgeTriggeredLatch } from './feedback/edge-triggered-latch.js'
 import { EdgeTriggeredLatchWithPresetClear } from './feedback/edge-latch-preset-clear.js'
 import { ClockSource } from './feedback/clock-source.js'
 import { EightBitRippleCounter } from './feedback/eight-bit-ripple-counter.js'
+import { ZeroFlag } from './feedback/zero-flag.js'
 
 import { LevelTriggeredLatchArray } from './arrays/level-triggered-latch-array.js'
 import { EdgeTriggeredLatchArray } from './arrays/edge-triggered-latch-array.js'
